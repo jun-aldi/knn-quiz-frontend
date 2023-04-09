@@ -8,25 +8,67 @@
       Siap menghitung gaya belajar <br />
       berdasarkan pola anda
     </center>
-    <form class="w-full card">
+    <form class="w-full card" @submit.prevent="takeQuiz">
       <div class="form-group">
         <label for="" class="text-grey">Nama Lengkap</label>
-        <input type="text" class="input-field" required />
+        <input type="text" class="input-field" required v-model="student.name" />
+      </div>
+      <div class="form-group">
+        <label for="" class="text-grey">Email</label>
+        <input type="text" class="input-field" required v-model="student.email" />
       </div>
       <div class="form-group">
         <label for="" class="text-grey">NIM</label>
-        <input type="text" class="input-field" required />
+        <input type="text" class="input-field" required v-model="student.nim" />
       </div>
       <div class="form-group">
         <label for="" class="text-grey">Program Studi</label>
-        <input type="text" class="input-field" required />
+        <input type="text" class="input-field" required v-model="student.program_name" />
       </div>
-      <NuxtLink :to="{ name: 'questions-id' }" class="w-full btn btn-primary mt-[14px]">Next</NuxtLink>
+      <button type="submit" class="w-full btn btn-primary mt-[14px]">Take Quiz</button>
     </form>
   </section>
 </template>
 <script>
 export default {
-  name: 'Quiz Page'
+  data() {
+    return {
+      student: {
+        name: '',
+        nim: '',
+        email: '',
+        program_name: '',
+        roles: 'student',
+        password: '12345678',
+
+      },
+    }
+  },
+  methods: {
+    async takeQuiz() {
+      try {
+        let response = await this.$axios.post('/register', this.student)
+
+        // Authenticate the user with registration credentials
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.student.email,
+            password: this.student.password
+          }
+        })
+
+        this.$router.push({
+          name: 'questions-id',
+          params: {
+            id: 1, // use the studentId instead of hardcoding 1
+          },
+        })
+
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  }
 }
-</script>
+</script >
+

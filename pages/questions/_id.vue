@@ -17,47 +17,102 @@
       </svg>
       Loading...
     </button>
-    <form class="w-full card " v-else>
+    <div v-else>
       <p>{{ questions.data.result.description }}</p>
-      <div class="flex items-center mb-4">
-        <input id="default-radio-1" type="radio" value="" name="default-radio"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-        <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_1
-        }}</label>
-      </div>
-      <div class="flex items-center mb-4">
-        <input id="default-radio-1" type="radio" value="" name="default-radio"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-        <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_2
-        }}</label>
-      </div>
-      <div class="flex items-center mb-4">
-        <input id="default-radio-1" type="radio" value="" name="default-radio"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
-        <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_3
-        }}</label>
-      </div>
-      <div class="flex justify-center mt-[14px]">
-        <NuxtLink :to="{ name: 'index' }" class="w-full btn btn-primary mx-2">Previous</NuxtLink>
-        <NuxtLink :to="{ name: 'questions-id' }" class="w-full btn btn-primary mx-2">Next</NuxtLink>
-      </div>
-    </form>
+      <form class="w-full card " @submit.prevent="answerQuestion">
+        <div class="flex items-center mb-4">
+          <input id="default-radio-1" type="radio" value="1" name="answer" v-model="answer.answer"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+          <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_1
+          }}</label>
+        </div>
+        <div class="flex items-center mb-4">
+          <input id="default-radio-1" type="radio" value="2" name="answer" v-model="answer.answer"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+          <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_2
+          }}</label>
+        </div>
+        <div class="flex items-center mb-4">
+          <input id="default-radio-1" type="radio" value="3" name="answer" v-model="answer.answer"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+          <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_3
+          }}</label>
+        </div>
+        <!-- for result -->
+        <div class="flex justify-center mt-[14px] " v-if="id > 5">
+          <button type="submit" class="w-full mx-2 btn btn-primary">Result</button>
+        </div>
+
+        <!-- for next question -->
+        <div class="flex justify-center mt-[14px] " v-else>
+          <button type="submit" class="w-full mx-2 btn btn-primary">Next</button>
+        </div>
+      </form>
+    </div>
   </section>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
+  middleware: 'auth',
   data() {
     return {
-      questions: [],//simpan data
+      questions: [],
+      answer: {
+        student_id: this.$store.state.auth.user.id,
+        question_id: this.$route.params.id,
+        answer: '',
+      },
     }
   },
+
   async fetch() {
     this.questions = await this.$axios.get('/question', {
       params: {
-        id: 1,
+        id: this.$route.params.id,
       }
     })
   },
+  computed: {
+    id() {
+      // You can access the id parameter from the $route object
+      return this.$route.params.id
+    },
+  },
+  methods: {
+    async answerQuestion() {
+      //submit data answer
+      let response = await this.$axios.post('/answer', this.answer)
+
+      //conditional for question
+      if (this.$route.params.id > 4) {
+        //go to result
+        try {
+          this.$router.push({
+            name: 'result-id',
+            params: {
+              id: this.$store.state.auth.user.id,
+            },
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        //go to next question
+        try {
+          const nextId = parseInt(this.$route.params.id) + 1;
+          this.$router.push({
+            name: 'questions-id',
+            params: {
+              id: nextId,
+            },
+          });
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+  }
 
 }
 </script>
