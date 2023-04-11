@@ -24,7 +24,7 @@ export default {
   css: ['@/assets/css/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [{ src: '~/plugins/vue-good-table', ssr: false }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -67,7 +67,13 @@ export default {
           logout: { url: '/logout', method: 'post' },
           user: { url: '/user', method: 'get' },
         },
+        userRoles: ['admin', 'student'], // Define the roles for your users
+        tokenRequired: true, // Set this to true if the token is required to access the app
+        tokenType: 'Bearer', // Set the token type
       },
+    },
+    router: {
+      middleware: ['auth', 'admin'], // Define the middleware to use for authentication and admin access
     },
   },
 
