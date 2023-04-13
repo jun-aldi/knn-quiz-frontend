@@ -19,7 +19,7 @@
           <form class="shrink md:w-[516px] w-full">
             <input type="text" name="" id=""
               class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200
-                                                                                                                                                                                                                                                                                                                  focus:ring-2 transition-all duration-300 w-full"
+                                                                                                                                                                                                                                                                                                                                                                                                                                focus:ring-2 transition-all duration-300 w-full"
               placeholder="Search people, team, project">
           </form>
           <a href="#" class="flex-none w-[46px] h-[46px] bg-white rounded-full p-[11px] relative notification-dot">
@@ -141,7 +141,9 @@
             }" styleClass="vgt-table bordered" class="table">
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'actions'">
-                <button class="px-4 py-2 btn-primary" @click="viewDetail(props.row.id)">View More</button>
+                <button
+                  class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  @click="viewDetail(props.row.id)">View More</button>
               </span>
               <span v-if="props.column.field === 'created_at'">{{ formatDate(props.row.created_at) }}</span>
               <span v-else>
@@ -155,18 +157,150 @@
 
 
 
-    <!-- Modal -->
+    <!-- Modal backdrop -->
+    <div class="fixed inset-0 z-10 flex items-center justify-center overflow-y-auto bg-gray-900 bg-opacity-50"
+      aria-labelledby="modal-title" role="dialog" aria-modal="true" v-if="isModalVisible">
+      <!-- Modal content container -->
+      <div class="w-full max-w-5xl mx-auto overflow-hidden bg-white rounded-lg">
+        <!-- Modal header -->
+        <div class="px-6 py-4 bg-gray-100">
+          <h2 class="text-lg font-semibold text-gray-800">Student Detail</h2>
+        </div>
+        <!-- modal body -->
+        <!-- modal body -->
+        <div class="container w-full h-full px-2">
+          <div style='background-color:rgb(248, 250, 255)' class="shadow-md">
+            <div class="relative flex flex-wrap p-4 text-lg md:mt-12 blue-box" style="cursor: auto;">
+              <blockquote class="w-full p-6 border-gray-200 xl:border-r-2 sm:w-1/2" style="cursor: auto;">
+                <div class="max-w-md mx-auto overflow-hidden">
+                  <div class="px-6 py-4 bg-white">
+                    <div class="flex items-center justify-center">
+                      <div class="p-3 bg-gray-300 rounded-full">
+                        <img class="object-cover w-24 h-24 rounded-full"
+                          src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light'
+                          alt="Profile Photo">
+                      </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <h3 class="text-xl font-medium text-gray-900">{{ detailStudent.name }}</h3>
+                      <p class="text-sm text-gray-600">{{ detailStudent.nim }}</p>
+                      <p class="text-sm text-gray-600">{{ detailStudent.program_name }}</p>
+                      <p class="mt-4 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                        laoreet,
+                        velit eget
+                        porta eleifend, enim tortor eleifend libero, at tincidunt velit velit auctor enim.</p>
+                      <div class="py-3 mt-2">
+                        <div class="grid justify-center grid-cols-3 gap-2 mt-1">
+                          <div class="px-3 py-1 text-sm font-semibold text-pink-500 rounded-full">Auditori <br>
+                            <span class="text-xl">43%</span>
+                          </div>
+                          <div class="px-3 py-1 text-sm font-semibold text-teal-500 rounded-full">Kinestetik <br>
+                            <span class="text-xl">24%</span>
+                          </div>
+                          <div class="px-3 py-1 text-sm font-semibold text-purple-500 rounded-full">Visualitik
+                            <br>
+                            <span class="text-xl">10%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="py-3 mt-2">
+                        <button
+                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
+                          Time Series Analysis
+                        </button>
+                        <button
+                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
+                          Gaming
+                        </button>
+                        <button
+                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
+                          Fintech
+                        </button>
+                        <button
+                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
+                          Ux
+                        </button>
+                        <button
+                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
+                          Strategy
+                        </button>
+                        <button
+                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
+                          Makers
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </blockquote>
+              <blockquote class="w-full p-6 border-gray-200 xl:border-r-2 sm:w-1/2" style="cursor: auto;">
+                <div class="max-w-md mx-auto overflow-hidden">
+                  <div class="px-6 py-4 bg-white">
+                    <div class="flex items-center justify-center">
+                      <div class="p-3">
+                        <svg class="object-cover w-24 h-24 rounded-full" xmlns="http://www.w3.org/2000/svg" x="0px"
+                          y="0px" width="64" height="64" viewBox="0 0 64 64" style="fill:#F25081;">
+                          <path
+                            d="M45.928,7H18.072C11.957,7,7,11.957,7,18.072v27.856C7,52.043,11.957,57,18.072,57h27.856C52.043,57,57,52.043,57,45.928	V18.072C57,11.957,52.043,7,45.928,7z M37.67,44.644c-1.702,0-4.09-1.045-4.09-3.493c0-2.448,1.522-3.881,3.672-4.299	c0.851-0.165,1.785-0.354,2.603-0.522c0.868-0.178,1.489-0.941,1.489-1.827l0-11.266c0-0.534-0.489-0.934-1.012-0.828l-13.153,2.655	c-0.526,0.106-0.904,0.568-0.904,1.105v16.056c0,2.3-0.347,5.724-5.469,5.724c-1.697,0-4.079-1.042-4.079-3.484	s1.519-3.871,3.662-4.288c0.919-0.179,1.935-0.385,2.797-0.561c0.735-0.151,1.258-0.8,1.253-1.55l-0.134-18.631	c-0.008-1.06,0.738-1.976,1.777-2.184l15.531-3.116c0.795-0.159,1.537,0.444,1.537,1.255c0.001,5.388,0.003,22.895,0.003,23.516	C43.153,41.211,42.805,44.644,37.67,44.644z">
+                          </path>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <h3 class="text-xl font-medium text-gray-900">Auditori Persons</h3>
+                      <p class="text-xs text-gray-600">Auditory Behavior</p>
+                      <p class="text-xs text-gray-600 p-t-2">Answers</p>
+                      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                          <tr>
+                            <th scope="col" class="px-6 py-3">
+                              No
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                              Answer
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="bg-white border-b" v-for="detailResult in detailResults">
+                            <td class="px-4 py-2 border">{{ detailResult.question_id }}</td>
+                            <td class="px-4 py-2 border">{{ detailResult.answer }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </blockquote>
+
+            </div>
+          </div>
+        </div>
+        <div class="px-6 py-4 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
+          <button type="button"
+            class="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+            @click="isModalVisible = false">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Modal
     <div class="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"
       v-if="isModalVisible">
       <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-        <!-- Background overlay -->
+        Background overlay
         <div class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
 
-        <!-- Modal panel -->
+        Modal panel
         <div
           class="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
           <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
-            <!-- Modal header -->
+            Modal header
             <div class="sm:flex sm:items-start">
               <div class="mt-3 text-center sm:mt-0 sm:text-left">
                 <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">
@@ -205,7 +339,7 @@
                         }}</li>
                     </ol>
                   </div>
-                  <!-- Add more profile details here -->
+                  Add more profile details here
                 </div>
               </div>
             </div>
@@ -219,7 +353,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
   </section>

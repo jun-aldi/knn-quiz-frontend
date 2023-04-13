@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="container h-full lg:px-40 sm:px-10">
+    <div class="container h-full px-10">
       <div style='background-color:rgb(248, 250, 255)' class="shadow-md">
         <div class="relative flex flex-wrap p-4 text-lg md:mt-12 blue-box" style="cursor: auto;">
           <blockquote class="w-full p-6 border-gray-200 xl:border-r-2 sm:w-1/2" style="cursor: auto;">
@@ -14,9 +14,9 @@
                   </div>
                 </div>
                 <div class="mt-4 text-center">
-                  <h3 class="text-xl font-medium text-gray-900">{{ student.name }}</h3>
-                  <p class="text-sm text-gray-600">{{ student.nim }}</p>
-                  <p class="text-sm text-gray-600">{{ student.program_name }}</p>
+                  <h3 class="text-xl font-medium text-gray-900">Juniar Aldi Nugroho</h3>
+                  <p class="text-sm text-gray-600">NIM: </p>
+                  <p class="text-sm text-gray-600">Program: </p>
                   <p class="mt-4 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     laoreet,
                     velit eget
@@ -40,7 +40,7 @@
               </div>
             </div>
           </blockquote>
-          <blockquote class="w-full p-6 border-gray-200 sm:w-1/2" style="cursor: auto;">
+          <blockquote class="w-full p-6 border-gray-200 xl:border-r-2 sm:w-1/2" style="cursor: auto;">
             <div class="max-w-md mx-auto overflow-hidden">
               <div class="px-6 py-4 bg-white">
                 <div class="flex items-center justify-center">
@@ -99,25 +99,3 @@
     </div>
   </section>
 </template>
-<script>
-export default {
-  middleware: 'auth',
-  data() {
-    return {
-      student: {
-        name: this.$store.state.auth.user.name,
-        nim: this.$store.state.auth.user.nim,
-        program_name: this.$store.state.auth.user.program_name,
-      },
-      results: {}
-    }
-  },
-  async fetch() {
-    this.results = await this.$axios.get('/answer', {
-      params: {
-        student_id: this.$store.state.auth.user.id,
-      }
-    })
-  },
-}
-</script>

@@ -21,20 +21,20 @@
       <p>{{ questions.data.result.description }}</p>
       <form class="w-full card " @submit.prevent="answerQuestion">
         <div class="flex items-center mb-4">
-          <input id="default-radio-1" type="radio" value="1" name="answer" v-model="answer.answer"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+          <input id="default-radio-1" type="radio" :value="questions.data.result.choice_1" name="answer"
+            v-model="answer.answer" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
           <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_1
           }}</label>
         </div>
         <div class="flex items-center mb-4">
-          <input id="default-radio-1" type="radio" value="2" name="answer" v-model="answer.answer"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+          <input id="default-radio-1" type="radio" :value="questions.data.result.choice_2" name="answer"
+            v-model="answer.answer" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
           <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_2
           }}</label>
         </div>
         <div class="flex items-center mb-4">
-          <input id="default-radio-1" type="radio" value="3" name="answer" v-model="answer.answer"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+          <input id="default-radio-1" type="radio" :value="questions.data.result.choice_3" name="answer"
+            v-model="answer.answer" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
           <label for="default-radio-1" class="ml-2 text-sm font-medium text-grey">{{ questions.data.result.choice_3
           }}</label>
         </div>
