@@ -19,7 +19,7 @@
           <form class="shrink md:w-[516px] w-full">
             <input type="text" name="" id=""
               class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200
-                                                                                                                                                                                                                                                                                                                focus:ring-2 transition-all duration-300 w-full"
+                                                                                                                                                                                                                                                                                                                  focus:ring-2 transition-all duration-300 w-full"
               placeholder="Search people, team, project">
           </form>
           <a href="#" class="flex-none w-[46px] h-[46px] bg-white rounded-full p-[11px] relative notification-dot">
@@ -141,8 +141,7 @@
             }" styleClass="vgt-table bordered" class="table">
             <template slot="table-row" slot-scope="props">
               <span v-if="props.column.field == 'actions'">
-                <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-                  @click="viewDetail(props.row.id)">View More</button>
+                <button class="px-4 py-2 btn-primary" @click="viewDetail(props.row.id)">View More</button>
               </span>
               <span v-if="props.column.field === 'created_at'">{{ formatDate(props.row.created_at) }}</span>
               <span v-else>

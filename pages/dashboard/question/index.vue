@@ -19,7 +19,7 @@
         <form class="shrink md:w-[516px] w-full">
           <input type="text" name="" id=""
             class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200
-                                                                                                                                                                            focus:ring-2 transition-all duration-300 w-full"
+                                                                                                                                                                              focus:ring-2 transition-all duration-300 w-full"
             placeholder="Search people, team, project">
         </form>
         <a href="#" class="flex-none w-[46px] h-[46px] bg-white rounded-full p-[11px] relative notification-dot">
@@ -47,8 +47,7 @@
         <label class="block mb-2 text-grey">Question:</label>
         <p class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
           type="text">{{ question.description }}</p>
-        <button class="px-4 py-2 mt-4 text-white bg-blue-500 rounded hover:bg-blue-700"
-          @click="viewQuestion(question.id)">Edit</button>
+        <button class="px-4 py-2 mt-4 btn-primary" @click="viewQuestion(question.id)">Edit</button>
       </div>
     </section>
 
