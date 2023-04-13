@@ -19,7 +19,7 @@
           <form class="shrink md:w-[516px] w-full">
             <input type="text" name="" id=""
               class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200
-                                                                                                                                                                                                                                                  focus:ring-2 transition-all duration-300 w-full"
+                                                                                                                                                                                                                                                                                                                focus:ring-2 transition-all duration-300 w-full"
               placeholder="Search people, team, project">
           </form>
           <a href="#" class="flex-none w-[46px] h-[46px] bg-white rounded-full p-[11px] relative notification-dot">
@@ -79,9 +79,9 @@
           <div class="card !gap-y-10">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-grey">Visual</p>
-                <div class="text-[32px] font-bold text-dark mt-[6px]">
-                  425,000
+                <p class="font-semibold text-purple-600">Visual</p>
+                <div class="text-[32px] font-bold text-purple-600 mt-[6px]">
+                  42
                 </div>
               </div>
             </div>
@@ -89,9 +89,9 @@
           <div class="card !gap-y-10">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-grey">Auditori</p>
-                <div class="text-[32px] font-bold text-dark mt-[6px]">
-                  205,399
+                <p class="font-semibold text-pink-600">Auditori</p>
+                <div class="text-[32px] font-bold text-pink-600 mt-[6px]">
+                  20
                 </div>
               </div>
             </div>
@@ -99,10 +99,11 @@
           <div class="card !gap-y-10">
             <div class="flex items-center justify-between">
               <div>
-                <p class="text-grey">Kinestetik</p>
-                <div class="text-[32px] font-bold text-dark mt-[6px]">
-                  142,593
+                <p class="font-semibold text-teal-600">Kinestetik</p>
+                <div class="text-[32px] font-bold text-teal-600 mt-[6px]">
+                  14
                 </div>
+
               </div>
             </div>
           </div>
@@ -143,6 +144,7 @@
                 <button class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
                   @click="viewDetail(props.row.id)">View More</button>
               </span>
+              <span v-if="props.column.field === 'created_at'">{{ formatDate(props.row.created_at) }}</span>
               <span v-else>
                 {{ props.formattedRow[props.column.field] }}
               </span>
@@ -224,6 +226,8 @@
   </section>
 </template>
 <script>
+import moment from 'moment';
+
 export default {
   middleware: 'admin',
   layout: 'dashboard',
@@ -246,6 +250,13 @@ export default {
             field: 'nim',
             sortable: true
           },
+          {
+            label: 'Join Date',
+            field: 'created_at',
+            // type: 'date',
+            sortable: true,
+          },
+
           {
             label: 'Actions',
             field: 'actions',
@@ -280,6 +291,10 @@ export default {
       this.$refs.myTable.search(this.searchText);
     },
 
+    //format date
+    formatDate(date) {
+      return moment.utc(date).format('DD-MM-YYYY');
+    },
     //fetch data for detail studnt data
     async viewDetail(id) {
 
