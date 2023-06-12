@@ -228,11 +228,9 @@
                       <p class="text-sm text-gray-600">
                         {{ detailStudent.program_name }}
                       </p>
-                      <p class="mt-4 text-sm text-gray-500">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Sed laoreet, velit eget porta eleifend, enim tortor
-                        eleifend libero, at tincidunt velit velit auctor enim.
-                      </p>
+                      <VisualDesc v-if="detailType.type === 'V'"> </VisualDesc>
+                  <AuditoryDesc v-else-if="detailType.type === 'A'"> </AuditoryDesc>
+                  <KinestheticDesc v-else-if="detailType.type === 'K'"> </KinestheticDesc>
                       <div class="py-3 mt-2">
                         <div class="grid justify-center grid-cols-3 gap-2 mt-1">
                           <div
@@ -256,38 +254,11 @@
                           </div>
                         </div>
                       </div>
-                      <div class="py-3 mt-2">
-                        <button
-                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                        >
-                          Time Series Analysis
-                        </button>
-                        <button
-                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                        >
-                          Gaming
-                        </button>
-                        <button
-                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                        >
-                          Fintech
-                        </button>
-                        <button
-                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                        >
-                          Ux
-                        </button>
-                        <button
-                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                        >
-                          Strategy
-                        </button>
-                        <button
-                          class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                        >
-                          Makers
-                        </button>
-                      </div>
+                      <div>
+                  <VisualJobs v-if="detailType.type === 'V'"> </VisualJobs>
+                  <AuditoryJobs v-else-if="detailType.type=== 'A'"> </AuditoryJobs>
+                  <KinestheticJobs v-else-if="detailType.type === 'K'"> </KinestheticJobs>
+                </div>
                     </div>
                   </div>
                 </div>
@@ -317,10 +288,15 @@
                       </div>
                     </div>
                     <div class="mt-4 text-center">
-                      <h3 class="text-xl font-medium text-gray-900">
+                      <h3 v-if="detailType.type === 'A'" class="text-xl font-medium text-gray-900">
                         Auditori Persons
                       </h3>
-                      <p class="text-xs text-gray-600">Auditory Behavior</p>
+                      <h3 v-if="detailType.type === 'V'" class="text-xl font-medium text-gray-900">
+                        Viusal Persons
+                      </h3>
+                      <h3 v-if="detailType.type === 'K'" class="text-xl font-medium text-gray-900">
+                        Kinesthetic Persons
+                      </h3>
                       <p class="text-xs text-gray-600 p-t-2">Answers</p>
                       <table
                         class="w-full text-sm text-left text-gray-500 dark:text-gray-400"

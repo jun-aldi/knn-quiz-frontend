@@ -132,6 +132,8 @@ export default {
       Visual: null,
       Kinesthetic: null,
       Auditorial: null,
+      UserId: null,
+      Id: null,
       Type: [],
     }
   },
@@ -149,20 +151,22 @@ export default {
       this.Visual = response.data.result.amount_visual
       this.Kinesthetic = response.data.result.amount_kinesthetic
       this.Auditorial = response.data.result.amount_auditorial
+      this.Id = response.data.result.id
+      this.UserId = response.data.result.user_id
     } catch (error) {
       console.error(error)
     }
 
-    this.postKNN(this.Visual, this.Kinesthetic, this.Auditorial)
+    this.postKNN(this.Visual, this.Kinesthetic, this.Auditorial,this.Id, this.UserId)
   },
 
   //method for called postKNN   from flask
   methods: {
-    async postKNN(Visual, Auditorial, Kinesthetic) {
+    async postKNN(Visual, Kinesthetic, Auditorial, id, user_id) {
       const data = {
         V: Visual,
-        K: Auditorial,
-        A: Kinesthetic,
+        K: Kinesthetic,
+        A: Auditorial,
       }
 
       try {
@@ -175,6 +179,19 @@ export default {
       } catch (error) {
         console.error(error) // Handle any errors
       }
+
+      try {
+            const response = await this.$axios.post(`/student/update/${id}`, {
+              amount_visual: Visual,
+              amount_kinesthetic: Kinesthetic,
+              amount_auditorial: Auditorial,
+              type: this.Type,
+              user_id: user_id,
+            })
+            console.log(response.data)
+          } catch (error) {
+            console.error(error)
+          }
     },
   },
 }
