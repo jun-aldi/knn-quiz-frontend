@@ -92,52 +92,23 @@
                   </div>
                 </div>
                 <div class="mt-4 text-center">
-                  <h3 class="text-xl font-medium text-gray-900">
-                    Auditori Persons
+                  <h3 v-if="Type === 'V'" class="text-xl font-medium text-gray-900">
+                    Visual Persons
                   </h3>
-                  <p class="text-xs text-gray-600">Auditory Behavior</p>
-                  <p class="py-4 mt-4 text-sm text-gray-500">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Esse provident, ut ipsa vel officia repellendus magni
-                    adipisci quos autem quae, expedita quo dolor, itaque veniam
-                    eaque ullam praesentium eos dolore perferendis reprehenderit
-                    sapiente. Explicabo omnis recusandae praesentium sint
-                    laborum maiores nam ipsum, consequuntur iure. Saepe ut
-                    quasi, omnis maxime nisi in ipsa soluta voluptatem, natus
-                    quaerat voluptatibus voluptate libero aliquid?
-                  </p>
-                  <div class="py-3 mt-2">
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                    >
-                      Time Series Analysis
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                    >
-                      Gaming
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                    >
-                      Fintech
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                    >
-                      Ux
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                    >
-                      Strategy
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300"
-                    >
-                      Makers
-                    </button>
-                  </div>
+                  <h3 v-else-if="Type === 'A'" class="text-xl font-medium text-gray-900">
+                    Auditory Persons
+                  </h3>
+                  <h3 v-else-if="Type === 'K'" class="text-xl font-medium text-gray-900">
+                    Kinesthetic Persons
+                  </h3>
+                  <VisualDesc v-if="Type === 'V'"> </VisualDesc>
+                  <AuditoryDesc v-else-if="Type === 'A'"> </AuditoryDesc>
+                  <KinestheticDesc v-else-if="Type === 'K'"> </KinestheticDesc>
+                </div>
+                <div>
+                  <VisualJobs v-if="Type === 'V'"> </VisualJobs>
+                  <AuditoryJobs v-else-if="Type === 'A'"> </AuditoryJobs>
+                  <KinestheticJobs v-else-if="Type === 'K'"> </KinestheticJobs>
                 </div>
               </div>
             </div>
@@ -158,15 +129,15 @@ export default {
         program_name: this.$store.state.auth.user.program_name,
       },
       detailType: [],
+      Visual: null,
+      Kinesthetic: null,
+      Auditorial: null,
+      Type: [],
     }
   },
-  async fetch() {
-    // this.results = await this.$axios.get('/student', {
-    //   params: {
-    //     user_id: this.$store.state.auth.user.id,
-    //   },
-    // })
 
+  //fetching data student
+  async fetch() {
     try {
       // this.detailResults = await this.$axios.get(`/answer?student_id=${id}`)
       const response = await this.$axios.get('/student', {
@@ -175,9 +146,36 @@ export default {
         },
       })
       this.detailType = response.data.result
+      this.Visual = response.data.result.amount_visual
+      this.Kinesthetic = response.data.result.amount_kinesthetic
+      this.Auditorial = response.data.result.amount_auditorial
     } catch (error) {
       console.error(error)
     }
+
+    this.postKNN(this.Visual, this.Kinesthetic, this.Auditorial)
+  },
+
+  //method for called postKNN   from flask
+  methods: {
+    async postKNN(Visual, Auditorial, Kinesthetic) {
+      const data = {
+        V: Visual,
+        K: Auditorial,
+        A: Kinesthetic,
+      }
+
+      try {
+        const response = await this.$axios.post(
+          'http://127.0.0.1:5000/API/single',
+          data
+        )
+        console.log(response.data) // Handle the response data
+        this.Type = response.data.Prediksi
+      } catch (error) {
+        console.error(error) // Handle any errors
+      }
+    },
   },
 }
 </script>

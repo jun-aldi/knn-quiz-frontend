@@ -109,6 +109,10 @@ export default {
   },
 
   methods: {
+
+
+
+
     countVariables() {
       this.result.data.forEach((item) => {
         if (item.choice && item.choice.category_id) {
