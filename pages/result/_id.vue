@@ -29,10 +29,11 @@
                   <p class="text-sm text-gray-600">
                     {{ student.program_name }}
                   </p>
-                  <p class="mt-4 text-sm text-gray-500">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    laoreet, velit eget porta eleifend, enim tortor eleifend
-                    libero, at tincidunt velit velit auctor enim.
+                    <div>
+                  <div v-for="(item, index) in arrayData" :key="index">
+                    <p class="mt-4 text-sm text-gray-500">Tetangga ke-{{ getTetanggaKeValue(item) }} Target: {{ getTargetValue(item) }}</p>
+                  </div>
+                </div>
                   </p>
                   <div class="py-3 mt-2">
                     <div class="grid justify-center grid-cols-3 gap-2 mt-1">
@@ -92,13 +93,22 @@
                   </div>
                 </div>
                 <div class="mt-4 text-center">
-                  <h3 v-if="Type === 'V'" class="text-xl font-medium text-gray-900">
+                  <h3
+                    v-if="Type === 'V'"
+                    class="text-xl font-medium text-gray-900"
+                  >
                     Visual Persons
                   </h3>
-                  <h3 v-else-if="Type === 'A'" class="text-xl font-medium text-gray-900">
+                  <h3
+                    v-else-if="Type === 'A'"
+                    class="text-xl font-medium text-gray-900"
+                  >
                     Auditory Persons
                   </h3>
-                  <h3 v-else-if="Type === 'K'" class="text-xl font-medium text-gray-900">
+                  <h3
+                    v-else-if="Type === 'K'"
+                    class="text-xl font-medium text-gray-900"
+                  >
                     Kinesthetic Persons
                   </h3>
                   <VisualDesc v-if="Type === 'V'"> </VisualDesc>
@@ -135,6 +145,7 @@ export default {
       UserId: null,
       Id: null,
       Type: [],
+      arrayData: [],
     }
   },
 
@@ -157,11 +168,25 @@ export default {
       console.error(error)
     }
 
-    this.postKNN(this.Visual, this.Kinesthetic, this.Auditorial,this.Id, this.UserId)
+    this.postKNN(
+      this.Visual,
+      this.Kinesthetic,
+      this.Auditorial,
+      this.Id,
+      this.UserId
+    )
   },
 
   //method for called postKNN   from flask
   methods: {
+    getTetanggaKeValue(item) {
+      return item.match(/Tetangga ke-(\d+)/)[1]
+    },
+    getTargetValue(item) {
+      const targetMatch = item.match(/target: \['(.*)'\]/);
+      return targetMatch ? targetMatch[1] : '';
+    },
+
     async postKNN(Visual, Kinesthetic, Auditorial, id, user_id) {
       const data = {
         V: Visual,
@@ -176,22 +201,25 @@ export default {
         )
         console.log(response.data) // Handle the response data
         this.Type = response.data.Prediksi
+        this.arrayData = response.data.Data
+
+        // Iterate over the elements in the array
       } catch (error) {
         console.error(error) // Handle any errors
       }
 
       try {
-            const response = await this.$axios.post(`/student/update/${id}`, {
-              amount_visual: Visual,
-              amount_kinesthetic: Kinesthetic,
-              amount_auditorial: Auditorial,
-              type: this.Type,
-              user_id: user_id,
-            })
-            console.log(response.data)
-          } catch (error) {
-            console.error(error)
-          }
+        const response = await this.$axios.post(`/student/update/${id}`, {
+          amount_visual: Visual,
+          amount_kinesthetic: Kinesthetic,
+          amount_auditorial: Auditorial,
+          type: this.Type,
+          user_id: user_id,
+        })
+        console.log(response.data)
+      } catch (error) {
+        console.error(error)
+      }
     },
   },
 }
