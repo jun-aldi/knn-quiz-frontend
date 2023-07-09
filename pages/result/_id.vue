@@ -208,7 +208,7 @@ export default {
 
       try {
         const response = await this.$axios.post(
-          'http://127.0.0.1:5000/API/single',
+          'http://103.176.78.209:5000/API/single',
           data
         )
         console.log(response.data)
