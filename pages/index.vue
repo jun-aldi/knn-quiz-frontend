@@ -40,12 +40,14 @@ export default {
         program_name: '',
         roles: 'student',
         password: '12345678',
-
+        error_message: "",
+        error: false,
       },
     }
   },
   methods: {
     async takeQuiz() {
+      this.error = false;
       try {
         let response = await this.$axios.post('/register', this.student)
 
@@ -65,6 +67,8 @@ export default {
         })
 
       } catch (error) {
+        this.error_message = error;
+        this.error = true;
         console.log(error)
       }
     },
