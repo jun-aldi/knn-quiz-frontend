@@ -29,39 +29,35 @@
                   <p class="text-sm text-gray-600">
                     {{ student.program_name }}
                   </p>
-                    <div>
-                  <div v-for="(item, index) in arrayData" :key="index">
-                    <p class="mt-4 text-sm text-gray-500">Tetangga ke-{{ getTetanggaKeValue(item) }} Target: {{ getTargetValue(item) }}</p>
-                  </div>
-                </div>
-                  </p>
                   <div class="py-3 mt-2">
                     <div class="grid justify-center grid-cols-3 gap-2 mt-1">
                       <div
                         class="px-3 py-1 text-sm font-semibold text-pink-500 rounded-full"
                       >
                         Visualitik <br />
-                        <span class="text-xl">{{
-                          detailType.amount_visual
-                        }}</span>
+                        <span class="text-xl">{{ total_visual }}</span>
                       </div>
                       <div
                         class="px-3 py-1 text-sm font-semibold text-teal-500 rounded-full"
                       >
                         Kinestetik <br />
-                        <span class="text-xl">{{
-                          detailType.amount_kinesthetic
-                        }}</span>
+                        <span class="text-xl">{{ total_kinestetik }}</span>
                       </div>
                       <div
                         class="px-3 py-1 text-sm font-semibold text-purple-500 rounded-full"
                       >
                         Auditori
                         <br />
-                        <span class="text-xl">{{
-                          detailType.amount_auditorial
-                        }}</span>
+                        <span class="text-xl">{{ total_auditorial }}</span>
                       </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div v-for="(item, index) in arrayData" :key="index">
+                      <p class="mt-4 text-sm font-bold text-yellow-500">
+                        Tetangga ke-{{ getTetanggaKeValue(item) }} Target:
+                        {{ getTargetValue(item) }}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -128,6 +124,7 @@
     </div>
   </section>
 </template>
+
 <script>
 export default {
   middleware: 'auth',
@@ -138,55 +135,70 @@ export default {
         nim: this.$store.state.auth.user.nim,
         program_name: this.$store.state.auth.user.program_name,
       },
-      detailType: [],
+      detailType: {},
       Visual: null,
       Kinesthetic: null,
       Auditorial: null,
       UserId: null,
       Id: null,
-      Type: [],
+      Type: '',
       arrayData: [],
+      total_kinestetik: 0,
+      total_auditorial: 0,
+      total_visual: 0,
     }
   },
-
-  //fetching data student
-  async fetch() {
-    try {
-      // this.detailResults = await this.$axios.get(`/answer?student_id=${id}`)
-      const response = await this.$axios.get('/student', {
-        params: {
-          user_id: this.$store.state.auth.user.id,
-        },
-      })
-      this.detailType = response.data.result
-      this.Visual = response.data.result.amount_visual
-      this.Kinesthetic = response.data.result.amount_kinesthetic
-      this.Auditorial = response.data.result.amount_auditorial
-      this.Id = response.data.result.id
-      this.UserId = response.data.result.user_id
-    } catch (error) {
-      console.error(error)
-    }
-
-    this.postKNN(
-      this.Visual,
-      this.Kinesthetic,
-      this.Auditorial,
-      this.Id,
-      this.UserId
-    )
+  created() {
+    this.fetchData()
   },
-
-  //method for called postKNN   from flask
   methods: {
+    async fetchData() {
+      try {
+        const response = await this.$axios.get('/student', {
+          params: {
+            user_id: this.$store.state.auth.user.id,
+          },
+        })
+        this.detailType = response.data.result
+        this.Visual = response.data.result.amount_visual
+        this.Kinesthetic = response.data.result.amount_kinesthetic
+        this.Auditorial = response.data.result.amount_auditorial
+        this.Id = response.data.result.id
+        this.UserId = response.data.result.user_id
+        this.postKNN(
+          this.Visual,
+          this.Kinesthetic,
+          this.Auditorial,
+          this.Id,
+          this.UserId
+        )
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    // countVariables(item) {
+    //   const targetMatch = item.match(/target: \['(.*)'\]/);
+    //   const total_neigh = targetMatch ? targetMatch[1] : '';
+    //   console.log(total_neigh);
+    //   switch (total_neigh) {
+    //     case 'V':
+    //       this.total_visual++;
+    //       break;
+    //     case 'A':
+    //       this.total_kinestetik++;
+    //       break;
+    //     case 'K':
+    //       this.total_auditorial++;
+    //       break;
+    //   }
+    // },
     getTetanggaKeValue(item) {
       return item.match(/Tetangga ke-(\d+)/)[1]
     },
     getTargetValue(item) {
-      const targetMatch = item.match(/target: \['(.*)'\]/);
-      return targetMatch ? targetMatch[1] : '';
+      const targetMatch = item.match(/target: \['(.*)'\]/)
+      return targetMatch ? targetMatch[1] : ''
     },
-
     async postKNN(Visual, Kinesthetic, Auditorial, id, user_id) {
       const data = {
         V: Visual,
@@ -199,13 +211,22 @@ export default {
           'http://127.0.0.1:5000/API/single',
           data
         )
-        console.log(response.data) // Handle the response data
+        console.log(response.data)
         this.Type = response.data.Prediksi
         this.arrayData = response.data.Data
+        for (const item of this.arrayData) {
+          const targetValue = item.match(/target: \[\'(\w)\'\]/)[1]
 
-        // Iterate over the elements in the array
+          if (targetValue === 'V') {
+            this.total_visual++
+          } else if (targetValue === 'A') {
+            this.total_auditorial++
+          } else if (targetValue === 'K') {
+            this.total_kinestetik++
+          }
+        }
       } catch (error) {
-        console.error(error) // Handle any errors
+        console.error(error)
       }
 
       try {
