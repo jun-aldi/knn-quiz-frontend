@@ -21,7 +21,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
       {
-        http-equiv: 'Content-Security-Policy',
+        'http-equiv': 'Content-Security-Policy',
         content: 'upgrade-insecure-requests'
       },
     ],
