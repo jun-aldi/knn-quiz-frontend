@@ -8,6 +8,7 @@
       Siap menghitung gaya belajar <br />
       berdasarkan pola anda
     </center>
+    <p class="align-content: center;">{{ error_message }}}</p>
     <form class="w-full card" @submit.prevent="takeQuiz">
       <div class="form-group">
         <label for="" class="text-grey">Nama Lengkap</label>
