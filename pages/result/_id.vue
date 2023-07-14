@@ -208,7 +208,7 @@ export default {
 
       try {
         const response = await this.$axios.post(
-          'https://103.59.94.77/API/single',
+          'https://dioquiz.my.id/API/single',
           data
         )
         console.log(response.data)
