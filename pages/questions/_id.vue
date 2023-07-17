@@ -136,7 +136,7 @@ export default {
       let response = await this.$axios.post('/answer', this.answer)
 
       //conditional for question
-      if (this.$route.params.id > 2) {
+      if (this.$route.params.id > 29) {
         //go to result
         try {
           const response = await this.$axios.get('/answer', {
