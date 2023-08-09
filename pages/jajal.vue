@@ -1,100 +1,63 @@
 <template>
-  <section>
-    <div class="container h-full px-10">
-      <div style='background-color:rgb(248, 250, 255)' class="shadow-md">
-        <div class="relative flex flex-wrap p-4 text-lg md:mt-12 blue-box" style="cursor: auto;">
-          <blockquote class="w-full p-6 border-gray-200 xl:border-r-2 sm:w-1/2" style="cursor: auto;">
-            <div class="max-w-md mx-auto overflow-hidden">
-              <div class="px-6 py-4 bg-white">
-                <div class="flex items-center justify-center">
-                  <div class="p-3 bg-gray-300 rounded-full">
-                    <img class="object-cover w-24 h-24 rounded-full"
-                      src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light'
-                      alt="Profile Photo">
+  <section class="">
+    <div class="grid h-screen place-items-center">
+      <section class="bg-gray-50">
+        <div
+          class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+        >
+          <a
+            href="#"
+            class="flex items-center mb-6 text-2xl font-semibold text-gray-900"
+          >
+            <img
+              class="w-8 h-8 mr-2"
+              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+              alt="logo"
+            />
+            Dio Quiz
+          </a>
+          <div
+            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0"
+          >
+            <div class="p-1 space-y-4 md:space-y-6 sm:p-8">
+              <div class="px-6 py-3 border-b-1 border-neutral-200">QUIZ 1</div>
+              <div class="p-6">
+                <blockquote>
+                  <div class="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
+                    <input
+                      class="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-primary dark:checked:after:border-primary dark:checked:after:bg-primary dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-primary dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="radioDefault01"
+                    />
+                    <label
+                      class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
+                      for="radioDefault01"
+                    >
+                      Default radio
+                    </label>
                   </div>
-                </div>
-                <div class="mt-4 text-center">
-                  <h3 class="text-xl font-medium text-gray-900">Juniar Aldi Nugroho</h3>
-                  <p class="text-sm text-gray-600">NIM: </p>
-                  <p class="text-sm text-gray-600">Program: </p>
-                  <p class="mt-4 text-sm text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    laoreet,
-                    velit eget
-                    porta eleifend, enim tortor eleifend libero, at tincidunt velit velit auctor enim.</p>
-                  <div class="py-3 mt-2">
-                    <div class="grid justify-center grid-cols-3 gap-2 mt-1">
-                      <div class="px-3 py-1 text-sm font-semibold text-pink-500 rounded-full">Auditori <br>
-                        <span class="text-xl">43%</span>
-                      </div>
-                      <div class="px-3 py-1 text-sm font-semibold text-teal-500 rounded-full">Kinestetik <br>
-                        <span class="text-xl">24%</span>
-                      </div>
-                      <div class="px-3 py-1 text-sm font-semibold text-purple-500 rounded-full">Visualitik
-                        <br>
-                        <span class="text-xl">10%</span>
-                      </div>
-
-                    </div>
+                  <div class="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
+                    <input
+                      class="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-primary dark:checked:after:border-primary dark:checked:after:bg-primary dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-primary dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
+                      type="radio"
+                      name="flexRadioDefault"
+                      id="radioDefault02"
+                      checked
+                    />
+                    <label
+                      class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
+                      for="radioDefault02"
+                    >
+                      Default checked radio
+                    </label>
                   </div>
-                </div>
+                </blockquote>
               </div>
             </div>
-          </blockquote>
-          <blockquote class="w-full p-6 border-gray-200 xl:border-r-2 sm:w-1/2" style="cursor: auto;">
-            <div class="max-w-md mx-auto overflow-hidden">
-              <div class="px-6 py-4 bg-white">
-                <div class="flex items-center justify-center">
-                  <div class="p-3">
-                    <svg class="object-cover w-24 h-24 rounded-full" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                      width="64" height="64" viewBox="0 0 64 64" style="fill:#F25081;">
-                      <path
-                        d="M45.928,7H18.072C11.957,7,7,11.957,7,18.072v27.856C7,52.043,11.957,57,18.072,57h27.856C52.043,57,57,52.043,57,45.928	V18.072C57,11.957,52.043,7,45.928,7z M37.67,44.644c-1.702,0-4.09-1.045-4.09-3.493c0-2.448,1.522-3.881,3.672-4.299	c0.851-0.165,1.785-0.354,2.603-0.522c0.868-0.178,1.489-0.941,1.489-1.827l0-11.266c0-0.534-0.489-0.934-1.012-0.828l-13.153,2.655	c-0.526,0.106-0.904,0.568-0.904,1.105v16.056c0,2.3-0.347,5.724-5.469,5.724c-1.697,0-4.079-1.042-4.079-3.484	s1.519-3.871,3.662-4.288c0.919-0.179,1.935-0.385,2.797-0.561c0.735-0.151,1.258-0.8,1.253-1.55l-0.134-18.631	c-0.008-1.06,0.738-1.976,1.777-2.184l15.531-3.116c0.795-0.159,1.537,0.444,1.537,1.255c0.001,5.388,0.003,22.895,0.003,23.516	C43.153,41.211,42.805,44.644,37.67,44.644z">
-                      </path>
-                    </svg>
-                  </div>
-                </div>
-                <div class="mt-4 text-center">
-                  <h3 class="text-xl font-medium text-gray-900">Auditori Persons</h3>
-                  <p class="text-xs text-gray-600">Auditory Behavior</p>
-                  <p class="py-4 mt-4 text-sm text-gray-500">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Esse
-                    provident, ut ipsa vel officia repellendus magni adipisci quos autem quae, expedita quo dolor, itaque
-                    veniam eaque ullam praesentium eos dolore perferendis reprehenderit sapiente. Explicabo omnis
-                    recusandae praesentium sint laborum maiores nam ipsum, consequuntur iure. Saepe ut quasi, omnis maxime
-                    nisi in ipsa soluta voluptatem, natus quaerat voluptatibus voluptate libero aliquid?</p>
-                  <div class="py-3 mt-2">
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
-                      Time Series Analysis
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
-                      Gaming
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
-                      Fintech
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
-                      Ux
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
-                      Strategy
-                    </button>
-                    <button
-                      class="px-4 py-2 my-1 text-sm font-light duration-300 bg-gray-200 rounded-full hover:bg-gray-300">
-                      Makers
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </blockquote>
-
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   </section>
 </template>
