@@ -38,41 +38,52 @@
       </svg>
       Loading...
     </button>
-    <div v-else>
-      <p>{{ questions.data.result.description }}</p>
-      <form class="w-full card" @submit.prevent="answerQuestion">
-        <div
-          v-for="detailChoices in questions.data.result.choices"
-          class="flex items-center mb-4"
-        >
-          <input
-            id="default-radio-1"
-            type="radio"
-            :value="detailChoices.id"
-            name="choice_id"
-            v-model="answer.choice_id"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
-          />
-          <label
-            for="default-radio-1"
-            class="ml-2 text-sm font-medium text-grey"
-            >{{ detailChoices.name }}</label
-          >
-        </div>
-        <!-- for result -->
-        <div class="flex justify-center mt-[14px]" v-if="id > 5">
-          <button type="submit" class="w-full mx-2 btn btn-primary">
-            Result
-          </button>
-        </div>
 
-        <!-- for next question -->
-        <div class="flex justify-center mt-[14px]" v-else>
-          <button type="submit" class="w-full mx-2 btn btn-primary">
-            Next
-          </button>
+    <div
+      v-else
+      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0"
+    >
+      <div class="p-1 space-y-4 md:space-y-6 sm:p-8">
+        <div class="px-6 py-3 font-bold border-b-1 border-neutral-200">
+          <h1>{{ questions.data.result.description }}</h1>
         </div>
-      </form>
+        <div class="p-6">
+          <blockquote>
+            <form @submit.prevent="answerQuestion">
+              <div
+                v-for="detailChoices in questions.data.result.choices"
+                class="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]"
+              >
+                <input
+                  class="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-primary dark:checked:after:border-primary dark:checked:after:bg-primary dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-primary dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
+                  type="radio"
+                  id="radioDefault01"
+                  :value="detailChoices.id"
+                  name="choice_id"
+                  v-model="answer.choice_id"
+                />
+                <label
+                  class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
+                  for="radioDefault01"
+                >
+                  {{ detailChoices.name }}
+                </label>
+              </div>
+              <div class="flex justify-center mt-6" v-if="id > 30">
+                <button type="submit" class="w-full btn btn-primary">
+                  Result
+                </button>
+              </div>
+              <!-- for next question -->
+              <div class="flex justify-center mt-6" v-else>
+                <button type="submit" class="w-full btn btn-primary">
+                  Next
+                </button>
+              </div>
+            </form>
+          </blockquote>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -92,7 +103,7 @@ export default {
         choice_id: '',
       },
     }
-    },
+  },
 
   async fetch() {
     this.questions = await this.$axios.get('/question', {
@@ -109,10 +120,6 @@ export default {
   },
 
   methods: {
-
-
-
-
     countVariables() {
       this.result.data.forEach((item) => {
         if (item.choice && item.choice.category_id) {
