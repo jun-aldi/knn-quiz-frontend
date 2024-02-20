@@ -1,7 +1,9 @@
-import Vue from 'vue'
-import VueGoodTablePlugin from 'vue-good-table'
+import Vue from "vue";
+import VueYouTubeEmbed from "vue-youtube-embed";
+Vue.use(VueYouTubeEmbed);
 
-// import the styles
-import 'vue-good-table/dist/vue-good-table.css'
+Vue.config.productionTip = false;
 
-Vue.use(VueGoodTablePlugin)
+new Vue({
+    render: (h) => h(App)
+}).$mount("#app");

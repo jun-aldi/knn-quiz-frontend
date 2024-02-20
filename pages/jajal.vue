@@ -1,63 +1,187 @@
 <template>
-  <section class="">
-    <div class="grid h-screen place-items-center">
-      <section class="bg-gray-50">
-        <div
-          class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+  <div class="lg:pr-[70px] py-[50px] lg:ml-[320px] xl:ml-[365px] px-4 lg:pl-0">
+    <!-- Top Section -->
+    <section
+      class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row"
+    >
+      <div class="flex items-center justify-between gap-4">
+        <a href="#" id="toggleOpenSidebar" class="lg:hidden">
+          <svg
+            class="w-6 h-6 text-dark"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h7"
+            ></path>
+          </svg>
+        </a>
+        <div class="text-[32px] font-semibold text-dark">Question List</div>
+      </div>
+      <div class="flex items-center gap-4">
+        <form class="shrink md:w-[516px] w-full">
+          <input
+            type="text"
+            name=""
+            id=""
+            class="input-field !outline-none !border-none italic form-icon-search ring-indigo-200 focus:ring-2 transition-all duration-300 w-full"
+            placeholder="Search people, team, project"
+          />
+        </form>
+        <a
+          href="#"
+          class="flex-none w-[46px] h-[46px] bg-white rounded-full p-[11px] relative notification-dot"
         >
-          <a
-            href="#"
-            class="flex items-center mb-6 text-2xl font-semibold text-gray-900"
-          >
-            <img
-              class="w-8 h-8 mr-2"
-              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
-              alt="logo"
-            />
-            Dio Quiz
-          </a>
-          <div
-            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0"
-          >
-            <div class="p-1 space-y-4 md:space-y-6 sm:p-8">
-              <div class="px-6 py-3 border-b-1 border-neutral-200">QUIZ 1</div>
-              <div class="p-6">
-                <blockquote>
-                  <div class="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
-                    <input
-                      class="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-primary dark:checked:after:border-primary dark:checked:after:bg-primary dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-primary dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
-                      type="radio"
-                      name="flexRadioDefault"
-                      id="radioDefault01"
-                    />
-                    <label
-                      class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-                      for="radioDefault01"
-                    >
-                      Default radio
-                    </label>
-                  </div>
-                  <div class="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
-                    <input
-                      class="relative float-left -ml-[1.5rem] mr-1 mt-0.5 h-5 w-5 appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-primary checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-primary dark:checked:after:border-primary dark:checked:after:bg-primary dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-primary dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
-                      type="radio"
-                      name="flexRadioDefault"
-                      id="radioDefault02"
-                      checked
-                    />
-                    <label
-                      class="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-                      for="radioDefault02"
-                    >
-                      Default checked radio
-                    </label>
-                  </div>
-                </blockquote>
-              </div>
-            </div>
+          <img src="/assets/svgs/ic-bell.svg" alt="" />
+        </a>
+      </div>
+    </section>
+
+    <section class="pt-[50px]">
+      <!-- Section Header -->
+      <div class="mb-[30px]">
+        <div class="flex items-center justify-between gap-6">
+          <div>
+            <div class="text-xl font-medium text-dark">Questions List</div>
+            <p class="text-grey">Your questions list</p>
           </div>
         </div>
-      </section>
+      </div>
+      <p v-if="$fetchState.pending">Fetching questions...</p>
+
+
+
+    </section>
+
+    <!-- Modal backdrop -->
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50"
+      aria-labelledby="modal-title"
+      role="dialog"
+      aria-modal="true"
+      v-if="isModalVisible"
+    >
+      <!-- Modal content container -->
+      <div class="w-full max-w-md mx-auto overflow-hidden bg-white rounded-lg">
+        <!-- Modal header -->
+        <div class="px-4 py-3 bg-gray-100">
+          <h2 class="text-lg font-semibold text-gray-800">Modal Header</h2>
+        </div>
+        <!-- Modal body with form -->
+        <div class="p-4">
+
+
+          <div class="flex items-center justify-end">
+            <button
+              class="px-4 py-2 font-bold rounded btn-primary hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+              @click="saveAllEdits"
+            >
+              Save Edit
+            </button>
+            <button
+              type="button"
+              class="inline-flex justify-center w-full px-4 py-2 text-base font-bold text-white border border-transparent rounded-md shadow-sm bg-rose-700 hover:bg-rose-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm"
+              @click="isModalVisible = false"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
+
+<script>
+export default {
+
+  data() {
+    return {
+      questions: [],
+      detailQuestion: [],
+      detailChoices: [],
+      isModalVisible: false,
+    }
+  },
+  async fetch() {
+    this.questions = await this.$axios.get('/question', {
+      params: {
+        quiz_id: 1,
+      },
+    })
+  },
+
+  methods: {
+    //fetch question for detail purpose
+    async viewQuestion(id) {
+      //get student detail
+      try {
+        const response = await this.$axios.get(`/question?id=${id}`)
+        this.detailQuestion = response.data.result
+        this.isModalVisible = true
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async editQuestion(id) {
+      try {
+        let response = await this.$axios.post(
+          `/question/update/${id}`,
+          this.detailQuestion
+        )
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+
+      // await this.fetch()
+      // this.isModalVisible = false
+    },
+
+    // async editChoices(id) {
+    //   try {
+    //     let response = await this.$axios.post(
+    //       `/choice/update/${id}`,
+    //       this.detailChoices
+    //     )
+    //     console.log(response)
+    //   } catch (err) {
+    //     console.log(err)
+    //   }
+
+    //   await this.fetch()
+    //   // this.isModalVisible = false
+    // },
+
+    async saveAllEdits() {
+      for (const detailChoice of this.detailQuestion.choices) {
+        try {
+          let response = await this.$axios.post(
+            `/choice/update/${detailChoice.id}`,
+            detailChoice
+          )
+          console.log(response)
+        } catch (err) {
+          console.log(err)
+        }
+      }
+
+      await this.editQuestion(this.detailQuestion.id)
+      // Refresh the question list after saving the edits
+      this.questions = await this.$axios.get('/question', {
+        params: {
+          quiz_id: 1,
+        },
+      })
+      this.isModalVisible = false
+      // this.isModalVisible = false
+    },
+  },
+}
+</script>
