@@ -137,7 +137,7 @@ export default {
         )
         console.log(response)
       } catch (err) {
-        console.log(err)
+        alert("An error occurred: " + err.message);
       }
 
       // await this.fetch()
