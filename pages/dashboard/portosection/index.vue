@@ -1,24 +1,12 @@
 <template>
   <div class="lg:pr-[70px] py-[50px] lg:ml-[320px] xl:ml-[365px] px-4 lg:pl-0">
     <!-- Top Section -->
-    <section
-      class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row"
-    >
+    <section class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row">
       <div class="flex items-center justify-between gap-4">
         <a href="#" id="toggleOpenSidebar" class="lg:hidden">
-          <svg
-            class="w-6 h-6 text-dark"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            ></path>
+          <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
           </svg>
         </a>
         <div class="text-[32px] font-semibold text-dark">Portofolio Shows Section</div>
@@ -26,16 +14,9 @@
     </section>
 
     <!-- Modal Section -->
-    <div
-      v-if="isModalOpen"
-      class="fixed inset-0 z-50 flex items-center justify-center"
-    >
-      <div
-        class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"
-      ></div>
-      <div
-        class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md"
-      >
+    <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
         <!-- Modal content goes here -->
         <div class="px-6 py-4 text-left modal-content">
           <div class="flex items-center justify-between pb-3">
@@ -49,38 +30,20 @@
             <div class="form-group">
               <label for="" class="text-grey">Portofolio Add</label>
               <p v-if="$fetchState.pending">Fetching portofolio...</p>
-              <select
-                v-else
-                @change="fetchPhotos"
-                v-model="heros.portofolio_id"
-                class="appearance-none input-field form-icon-chevron_down"
-              >
-                <option
-                  :value="portofolio.id"
-                  v-for="portofolio in portofolios.data.result.data"
-                >
+              <select v-else @change="fetchPhotos" v-model="heros.portofolio_id"
+                class="appearance-none input-field form-icon-chevron_down">
+                <option :value="portofolio.id" v-for="portofolio in portofolios.data.result.data">
                   {{ portofolio.title }}
                 </option>
               </select>
             </div>
-            <div
-              class="form-group"
-              v-if="heros.portofolio_id && !fetchingPhotos"
-            >
+            <div class="form-group" v-if="heros.portofolio_id && !fetchingPhotos">
               <label for="" class="text-grey">Photo</label>
               <p v-if="$fetchState.pendingPhotos">Fetching photo...</p>
-              <select
-                v-else
-                v-model="heros.photo_id"
-                class="appearance-none input-field form-icon-chevron_down"
-              >
-                <option
-                  :style="{
-                    backgroundImage: `url('https://aka-backend.test/${photo.src}')`,
-                  }"
-                  :value="photo.id"
-                  v-for="photo in photos.result.data"
-                >
+              <select v-else v-model="heros.photo_id" class="appearance-none input-field form-icon-chevron_down">
+                <option :style="{
+                  backgroundImage: `url('https://aka-backend.test/${photo.src}')`,
+                }" :value="photo.id" v-for="photo in photos.result.data">
                   {{ photo.desc }}
                 </option>
               </select>
@@ -96,9 +59,7 @@
     <section class="pt-[50px]">
       <!-- Section Header -->
       <div class="mb-[30px]">
-        <div
-          class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row"
-        >
+        <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
           <div>
             <div class="text-xl font-medium text-dark">Statistics</div>
             <p class="text-grey">Your portofolio show</p>
@@ -112,7 +73,7 @@
           <div class="flex items-center justify-between">
             <div>
               <p class="text-grey">In Total</p>
-              <div  v-if="shows" class="text-[32px] font-bold text-brightYellow mt-[6px]">{{ totalShows}}</div>
+              <div v-if="shows" class="text-[32px] font-bold text-brightYellow mt-[6px]">{{ totalShows }}</div>
             </div>
           </div>
         </div>
@@ -130,28 +91,16 @@
         </div>
       </div>
 
-      <div
-        class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3"
-      >
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
         <p v-if="$fetchState.pending">Fetching portofolio shows...</p>
         <!-- Card -->
-        <div
-          v-else
-          class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
-          v-for="show in shows.data.result.data"
-        >
-          <img
-            :src="'https://aka-backend.test/' + show.photo.src"
-            alt=""
-            class="max-h-48"
-          />
+        <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
+          v-for="show in shows.data.result.data">
+          <img :src="'https://aka-backend.test/' + show.photo.src" alt="" class="max-h-48" />
           <div class="mt-6 mb-1 font-semibold text-center text-dark">
             {{ show.photo.portofolio.title }}
           </div>
-          <button
-            @click="deleteHero(show.id)"
-            class="text-white bg-red-400 btn"
-          >
+          <button @click="deleteHero(show.id)" class="text-white bg-red-400 btn">
             Delete
           </button>
         </div>
@@ -189,17 +138,24 @@ export default {
     },
   },
   async fetch() {
-    ;(this.shows = await this.$axios.get('/shows', {
-      params: {
-        limit: 100,
-      },
-    })),
-      (this.portofolios = await this.$axios.get('/portofolio', {
+    try {
+      ; (this.shows = await this.$axios.get('/shows', {
         params: {
           limit: 100,
         },
-      }))
+      })),
+        (this.portofolios = await this.$axios.get('/portofolio', {
+          params: {
+            limit: 100,
+          },
+        }))
       this.totalShows = this.shows.data.result.total;
+    } catch (error) {
+      // Handle errors, such as displaying an error message
+      console.error('Error deleting youtube:', error)
+      window.alert("An error occurred: " + error.message);
+    }
+
   },
   methods: {
     async deleteHero(heroId) {
@@ -224,22 +180,32 @@ export default {
         } catch (error) {
           // Handle errors, such as displaying an error message
           console.error('Error deleting hero:', error)
+          // Handle errors, such as displaying an error message
+          console.error('Error deleting youtube:', error)
+          window.alert("An error occurred: " + error.message);
         }
       }
     },
 
     async fetch() {
-      ;(this.shows = await this.$axios.get('/shows', {
-        params: {
-          limit: 100,
-        },
-      })),
-        (this.portofolios = await this.$axios.get('/portofolio', {
+      try {
+        ; (this.shows = await this.$axios.get('/shows', {
           params: {
             limit: 100,
           },
-        }))
+        })),
+          (this.portofolios = await this.$axios.get('/portofolio', {
+            params: {
+              limit: 100,
+            },
+          }))
         this.totalShows = this.shows.data.result.total;
+      } catch (error) {
+        // Handle errors, such as displaying an error message
+        console.error('Error:', error)
+        window.alert("An error occurred: " + error.message);
+      }
+
     },
 
     async fetchPhotos() {
@@ -255,6 +221,9 @@ export default {
           this.photos = response.data
         } catch (error) {
           console.error('Error fetching photos:', error)
+          // Handle errors, such as displaying an error message
+          console.error('Error:', error)
+          window.alert("An error occurred: " + error.message);
         } finally {
           this.fetchingPhotos = false // Set fetchingPhotos to false after fetching
         }
@@ -280,6 +249,9 @@ export default {
         console.log(response)
       } catch (error) {
         console.log(error)
+        // Handle errors, such as displaying an error message
+        console.error('Error:', error)
+        window.alert("An error occurred: " + error.message);
       }
     },
   },

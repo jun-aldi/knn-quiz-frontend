@@ -81,7 +81,8 @@
         <!-- Card -->
         <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
           v-for="youtube in youtubes.data.result.data">
-          <youtube :video-id="getYoutubeVideoId(youtube.src)" :player-width="250" :player-height="300" @ready="ready" @playing="playing">
+          <youtube :video-id="getYoutubeVideoId(youtube.src)" :player-width="250" :player-height="300" @ready="ready"
+            @playing="playing">
           </youtube>
           <button @click="deleteYoutube(youtube.id)" class="my-4 text-white bg-red-400 btn">
             Delete
@@ -111,12 +112,18 @@ export default {
   },
 
   async fetch() {
-    (this.youtubes = await this.$axios.get('/youtube', {
-      params: {
-        limit: 100,
-      },
-    })),
-      this.totalYoutubes = this.youtubes.data.result.total;
+    try {
+      (this.youtubes = await this.$axios.get('/youtube', {
+        params: {
+          limit: 100,
+        },
+      })),
+        this.totalYoutubes = this.youtubes.data.result.total;
+    } catch (error) {
+      console.error('Error deleting youtube:', error)
+      window.alert("An error occurred: " + error.message);
+    }
+
   },
   methods: {
     ready(event) {
@@ -150,17 +157,25 @@ export default {
         } catch (error) {
           // Handle errors, such as displaying an error message
           console.error('Error deleting youtube:', error)
+          window.alert("An error occurred: " + error.message);
         }
       }
     },
 
     async fetch() {
-      (this.youtubes = await this.$axios.get('/youtube', {
-        params: {
-          limit: 100,
-        },
-      })),
-        this.totalYoutubes = this.youtubes.data.result.total;
+      try {
+        (this.youtubes = await this.$axios.get('/youtube', {
+          params: {
+            limit: 100,
+          },
+        })),
+          this.totalYoutubes = this.youtubes.data.result.total;
+      } catch (error) {
+        // Handle errors, such as displaying an error message
+        console.error('Error:', error)
+        window.alert("An error occurred: " + error.message);
+      }
+
     },
 
     openModal() {
@@ -170,8 +185,8 @@ export default {
       this.isModalOpen = false
     },
     getYoutubeVideoId(youtubeUrl) {
-    return getIdFromURL(youtubeUrl);
-  },
+      return getIdFromURL(youtubeUrl);
+    },
     // add Heroes
     async addYoutube() {
       try {
@@ -185,6 +200,8 @@ export default {
         console.log(response)
       } catch (error) {
         console.log(error)
+        console.error('Error:', error)
+        window.alert("An error occurred: " + error.message);
       }
     },
   },

@@ -112,12 +112,17 @@ export default {
 
   },
   async fetch() {
-    this.portofolios = await this.$axios.get('/portofolio', {
+    try {
+      this.portofolios = await this.$axios.get('/portofolio', {
       params: {
         limit: 100,
       },
     })
     this.totalPortofolios = this.portofolios.data.result.total;
+    } catch (error) {
+      window.alert("An error occurred: " + error.message);
+    }
+
   },
 }
 </script>

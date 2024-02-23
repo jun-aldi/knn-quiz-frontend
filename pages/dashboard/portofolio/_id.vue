@@ -373,7 +373,8 @@ export default {
   },
 
   async fetch() {
-    const response = await this.$axios.get('/portofolio', {
+    try {
+      const response = await this.$axios.get('/portofolio', {
       params: {
         id: this.$route.params.id,
         limit: 100,
@@ -385,6 +386,10 @@ export default {
         limit: 100,
       },
     })
+    } catch (error) {
+      window.alert("An error occurred: " + error.message);
+    }
+
   },
   methods: {
     async updatePortofolio() {
@@ -398,10 +403,9 @@ export default {
         await this.fetch()
         // Close the modal
         this.isModalEditOpen = false
-
-        console.log(response)
       } catch (error) {
         console.error(error)
+        window.alert("An error occurred: " + error.message);
       }
     },
 
@@ -433,7 +437,8 @@ export default {
       }, 100)
     },
     async fetch() {
-      const response = await this.$axios.get('/portofolio', {
+      try {
+        const response = await this.$axios.get('/portofolio', {
         params: {
           id: this.$route.params.id,
           limit: 100,
@@ -445,6 +450,9 @@ export default {
           limit: 100,
         },
       })
+      } catch (error) {
+        window.alert("An error occurred: " + error.message);
+      }
     },
 
     async deletePhoto(photoId) {
@@ -540,6 +548,7 @@ export default {
         } catch (error) {
           // Handle errors, such as displaying an error message
           console.error('Error deleting photo:', error)
+          window.alert("An error occurred: " + error.message);
         }
       }
     },
@@ -576,9 +585,9 @@ export default {
         // Close the modal
         this.isModalOpen = false
 
-        console.log(response)
       } catch (error) {
         console.error(error)
+        window.alert("An error occurred: " + error.message);
       }
     },
 

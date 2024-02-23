@@ -1,24 +1,12 @@
 <template>
   <div class="lg:pr-[70px] py-[50px] lg:ml-[320px] xl:ml-[365px] px-4 lg:pl-0">
     <!-- Top Section -->
-    <section
-      class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row"
-    >
+    <section class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row">
       <div class="flex items-center justify-between gap-4">
         <a href="#" id="toggleOpenSidebar" class="lg:hidden">
-          <svg
-            class="w-6 h-6 text-dark"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            ></path>
+          <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
           </svg>
         </a>
         <div class="text-[32px] font-semibold text-dark">Promotion Section</div>
@@ -26,16 +14,9 @@
     </section>
 
     <!-- Modal Section -->
-    <div
-      v-if="isModalOpen"
-      class="fixed inset-0 z-50 flex items-center justify-center"
-    >
-      <div
-        class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"
-      ></div>
-      <div
-        class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md"
-      >
+    <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+      <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
         <!-- Modal content goes here -->
         <div class="px-6 py-4 text-left modal-content">
           <div class="flex items-center justify-between pb-3">
@@ -46,31 +27,17 @@
           </div>
           <!-- Add your photo upload form or any other content here -->
           <form @submit.prevent="addPromotion">
-            <label
-              for="dropzone-file"
-              class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-            >
+            <label for="dropzone-file"
+              class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
               <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <img
-                  v-if="previewImageUrl"
-                  :src="previewImageUrl"
-                  alt="Uploaded Preview"
-                  class="w-16 h-16 mb-4 rounded-full"
-                />
-                <svg
-                  v-else
-                  class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 16"
-                >
+                <img v-if="previewImageUrl" :src="previewImageUrl" alt="Uploaded Preview"
+                  class="w-16 h-16 mb-4 rounded-full" />
+                <svg v-else class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                   <!-- Your SVG path here -->
                 </svg>
                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span v-if="previewImageUrl" class="font-semibold"
-                    >Image Uploaded</span
-                  >
+                  <span v-if="previewImageUrl" class="font-semibold">Image Uploaded</span>
                   <span v-else class="font-semibold">Click to upload</span> or
                   drag and drop
                 </p>
@@ -78,17 +45,10 @@
                   WEBP or JPEG (MAX. 1MB)
                 </p>
               </div>
-              <input
-                id="dropzone-file"
-                type="file"
-                class="hidden"
-                @change="handleFileUpload"
-              />
+              <input id="dropzone-file" type="file" class="hidden" @change="handleFileUpload" />
             </label>
-            <button
-              type="submit"
-              class="text-white bg-brightYellow focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-2"
-            >
+            <button type="submit"
+              class="text-white bg-brightYellow focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-2">
               Add Promotion
             </button>
           </form>
@@ -99,9 +59,7 @@
     <section class="pt-[50px]">
       <!-- Section Header -->
       <div class="mb-[30px]">
-        <div
-          class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row"
-        >
+        <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
           <div>
             <div class="text-xl font-medium text-dark">Statistics</div>
             <p class="text-grey">Your promotions</p>
@@ -118,10 +76,7 @@
             <div>
               <p class="text-grey">In Total</p>
 
-              <div
-                v-if="promotions"
-                class="text-[32px] font-bold text-brightYellow mt-[6px]"
-              >
+              <div v-if="promotions" class="text-[32px] font-bold text-brightYellow mt-[6px]">
                 {{ totalPromotions }}
               </div>
             </div>
@@ -141,28 +96,15 @@
         </div>
       </div>
 
-      <div
-        class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3"
-      >
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
         <p v-if="$fetchState.pending">Fetching promotions...</p>
         <!-- Card -->
-        <div
-          v-else
-          class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
-          v-for="promotion in promotions.data.result.data"
-        >
-          <img
-            :src="'https://aka-backend.test/' + promotion.src"
-            alt=""
-            class="max-h-[200px]"
-            @click.prevent="
-              openFullPage('https://aka-backend.test/' + promotion.src)
-            "
-          />
-          <button
-            @click="deletePromotion(promotion.id)"
-            class="my-4 text-white bg-red-400 btn"
-          >
+        <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
+          v-for="promotion in promotions.data.result.data">
+          <img :src="'https://aka-backend.test/' + promotion.src" alt="" class="max-h-[200px]" @click.prevent="
+            openFullPage('https://aka-backend.test/' + promotion.src)
+            " />
+          <button @click="deletePromotion(promotion.id)" class="my-4 text-white bg-red-400 btn">
             Delete
           </button>
         </div>
@@ -189,12 +131,18 @@ export default {
   },
 
   async fetch() {
-    ;(this.promotions = await this.$axios.get('/promosi', {
-      params: {
-        limit: 100,
-      },
-    })),
-      (this.totalPromotions = this.promotions.data.result.total)
+    try {
+      ; (this.promotions = await this.$axios.get('/promosi', {
+        params: {
+          limit: 100,
+        },
+      })),
+        (this.totalPromotions = this.promotions.data.result.total)
+    } catch (error) {
+      console.error('Error deleting youtube:', error)
+      window.alert("An error occurred: " + error.message);
+    }
+
   },
   methods: {
     async deletePromotion(promotionId) {
@@ -225,7 +173,7 @@ export default {
     },
 
     async fetch() {
-      ;(this.promotions = await this.$axios.get('/promosi', {
+      ; (this.promotions = await this.$axios.get('/promosi', {
         params: {
           limit: 100,
         },

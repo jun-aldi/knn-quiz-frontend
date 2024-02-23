@@ -207,12 +207,17 @@ export default {
   },
 
   async fetch() {
-    const response = await this.$axios.get('/about', {
+    try {
+      const response = await this.$axios.get('/about', {
       params: {
         limit: 10,
       },
     })
     this.abouts = response.data.result.data[0]
+    } catch (error) {
+      window.alert("An error occurred: " + error.message);
+    }
+
 
   },
   methods: {

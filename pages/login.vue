@@ -52,7 +52,7 @@
                 required=""
               />
             </div>
-
+            <div v-if="loginError" class="text-sm text-red-500">{{ loginError }}</div>
             <button
               type="submit"
               class="w-full bg-yellow-300 text-black bg-primary-600 font-semibold hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 rounded-lg text-sm px-5 py-2.5 text-center"
@@ -87,24 +87,27 @@ export default {
         email: '',
         password: '',
       },
+      loginError: '', // New variable to store login error message
     }
   },
   methods: {
     async userLogin() {
-      try {
-        let response = await this.$auth.loginWith('local', { data: this.login })
-        // Save token to localStorage
+    try {
+      let response = await this.$auth.loginWith('local', { data: this.login })
+      // Save token to localStorage
 
-        console.log(response)
-
-
-      } catch (err) {
-        console.log(err)
+    } catch (err) {
+      console.log(err)
+      if (err.response && err.response.data && err.response.data.meta) {
+        this.loginError = "An error occurred: " + err.response.data.meta.message;
+      } else {
+        this.loginError = "An unknown error occurred.";
       }
-      this.$router.push({
-        name: 'dashboard',
-      })
-    },
+    }
+    this.$router.push({
+      name: 'dashboard',
+    })
+  },
   },
 
 }

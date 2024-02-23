@@ -192,7 +192,8 @@ export default {
     },
   },
   async fetch() {
-    ;(this.heroes = await this.$axios.get('/hero', {
+    try {
+      ;(this.heroes = await this.$axios.get('/hero', {
       params: {
         limit: 100,
       },
@@ -203,6 +204,9 @@ export default {
         },
       })),
      this.totalHeroes = this.heroes.data.result.total;
+    } catch (error) {
+      window.alert("An error occurred: " + error.message);
+    }
   },
   methods: {
     async deleteHero(heroId) {
@@ -227,12 +231,14 @@ export default {
         } catch (error) {
           // Handle errors, such as displaying an error message
           console.error('Error deleting hero:', error)
+          window.alert("An error occurred: " + error.message);
         }
       }
     },
 
     async fetch() {
-      ;(this.heroes = await this.$axios.get('/hero', {
+      try {
+        (this.heroes = await this.$axios.get('/hero', {
         params: {
           limit: 100,
         },
@@ -243,6 +249,9 @@ export default {
           },
         })),
         this.totalHeroes = this.heroes.data.result.total;
+      } catch (error) {
+        window.alert("An error occurred: " + error.message);
+      }
     },
 
     async fetchPhotos() {
@@ -258,6 +267,7 @@ export default {
           this.photos = response.data
         } catch (error) {
           console.error('Error fetching photos:', error)
+          window.alert("An error occurred: " + error.message);
         } finally {
           this.fetchingPhotos = false // Set fetchingPhotos to false after fetching
         }
@@ -283,6 +293,7 @@ export default {
         console.log(response)
       } catch (error) {
         console.log(error)
+        window.alert("An error occurred: " + error.message);
       }
     },
   },

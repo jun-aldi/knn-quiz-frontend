@@ -65,11 +65,16 @@ export default {
   },
 
   async fetch() {
-    this.categories = await this.$axios.get('/category', {
+    try {
+      this.categories = await this.$axios.get('/category', {
       params: {
         limit: 100,
       },
     })
+    } catch (error) {
+      window.alert("An error occurred: " + error.message);
+    }
+
   },
   methods: {
     async createPortofolio() {
@@ -83,6 +88,7 @@ export default {
         console.log(response)
       } catch (error) {
         console.log(error)
+        window.alert("An error occurred: " + error.message);
       }
     },
   },

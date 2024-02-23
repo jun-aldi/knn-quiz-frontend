@@ -72,7 +72,7 @@
         <!-- Card -->
         <div class="card py-6 md:!py-10 md:!px-[38px] !gap-y-0 relative" v-else
           v-for="category in categories.data.result.data">
-          <button  @click="deleteCategory(category.id)" style="color: rgb(247, 108, 108);"
+          <button @click="deleteCategory(category.id)" style="color: rgb(247, 108, 108);"
             class="absolute text-3xl font-bold top-2 right-2">
             &#215;
           </button>
@@ -100,11 +100,15 @@ export default {
     }
   },
   async fetch() {
-    this.categories = await this.$axios.get('/category', {
-      params: {
-        limit: 100,
-      }
-    })
+    try {
+      this.categories = await this.$axios.get('/category', {
+        params: {
+          limit: 100,
+        }
+      })
+    } catch (error) {
+      window.alert("An error occurred: " + error.message);
+    }
   }, methods: {
 
     async deleteCategory(categoryId) {
@@ -129,16 +133,22 @@ export default {
         } catch (error) {
           // Handle errors, such as displaying an error message
           console.error('Error deleting hero:', error)
+          window.alert("An error occurred: " + error.message);
         }
       }
     },
 
     async fetch() {
-      this.categories = await this.$axios.get('/category', {
+      try {
+        this.categories = await this.$axios.get('/category', {
         params: {
           limit: 100,
         }
       })
+      } catch (error) {
+        window.alert("An error occurred: " + error.message);
+      }
+
     },
 
 
@@ -167,6 +177,7 @@ export default {
         console.log(response)
       } catch (error) {
         console.error(error)
+        window.alert("An error occurred: " + error.message);
       }
     },
 
