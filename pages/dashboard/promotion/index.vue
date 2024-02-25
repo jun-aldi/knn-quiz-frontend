@@ -101,8 +101,8 @@
         <!-- Card -->
         <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
           v-for="promotion in promotions.data.result.data">
-          <img :src="'https://aka-backend.test/' + promotion.src" alt="" class="max-h-[200px]" @click.prevent="
-            openFullPage('https://aka-backend.test/' + promotion.src)
+          <img :src="'https://akaapi.cloud/' + promotion.src" alt="" class="max-h-[200px]" @click.prevent="
+            openFullPage('https://akaapi.cloud/' + promotion.src)
             " />
           <button @click="deletePromotion(promotion.id)" class="my-4 text-white bg-red-400 btn">
             Delete

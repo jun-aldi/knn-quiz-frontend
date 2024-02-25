@@ -149,24 +149,24 @@
             <div class="grid gap-6 md:grid-cols-3">
               <div class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
-                  <img :src="'https://aka-backend.test/' + abouts.src_title" alt="" class="max-h-[200px]" @click.prevent="
-                    openFullPage('https://aka-backend.test/' + abouts.src_title)
+                  <img :src="'https://akaapi.cloud/' + abouts.src_title" alt="" class="max-h-[200px]" @click.prevent="
+                    openFullPage('https://akaapi.cloud/' + abouts.src_title)
                     " />
                   <p>Gambar Pertama</p>
                 </div>
               </div>
               <div class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
-                  <img :src="'https://aka-backend.test/' + abouts.src_visi" alt="" class="max-h-[200px]" @click.prevent="
-                    openFullPage('https://aka-backend.test/' + abouts.src_visi)
+                  <img :src="'https://akaapi.cloud/' + abouts.src_visi" alt="" class="max-h-[200px]" @click.prevent="
+                    openFullPage('https://akaapi.cloud/' + abouts.src_visi)
                     " />
                   <p>Gambar Visi</p>
                 </div>
               </div>
               <div class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
-                  <img :src="'https://aka-backend.test/' + abouts.src_misi" alt="" class="max-h-[200px]" @click.prevent="
-                    openFullPage('https://aka-backend.test/' + abouts.src_misi)
+                  <img :src="'https://akaapi.cloud/' + abouts.src_misi" alt="" class="max-h-[200px]" @click.prevent="
+                    openFullPage('https://akaapi.cloud/' + abouts.src_misi)
                     " />
                   <p>Gambar Misi</p>
                 </div>

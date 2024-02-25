@@ -96,7 +96,7 @@
         <!-- Card -->
         <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
           v-for="show in shows.data.result.data">
-          <img :src="'https://aka-backend.test/' + show.photo.src" alt="" class="max-h-48" />
+          <img :src="'https://akaapi.cloud/' + show.photo.src" alt="" class="max-h-48" />
           <div class="mt-6 mb-1 font-semibold text-center text-dark">
             {{ show.photo.portofolio.title }}
           </div>

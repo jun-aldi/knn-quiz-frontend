@@ -83,7 +83,7 @@
 
           <img
             v-if="portofolio.photo.length > 0"
-            :src="`${$config.IMG_URL}${ portofolio.photo[0].src}`"
+            :src="'https://akaapi.cloud/' + portofolio.photo[0].src"
             alt=""
             class="max-h-48"
           />
