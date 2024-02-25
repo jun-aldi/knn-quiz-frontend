@@ -208,8 +208,8 @@
             <div class="grid gap-6 md:grid-cols-3">
               <div v-for="photo in portofolios.photo" class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
-                  <img :src="`${$config.BASE_URL}${photo.src}`" alt="" class="max-h-[200px]"
-                    @click.prevent="openFullPage(`${$config.BASE_URL}${photo.src}`)" />
+                  <img :src="`${$config.IMG_URL}${photo.src}`" alt="" class="max-h-[200px]"
+                    @click.prevent="openFullPage(`${$config.IMG_URL}${photo.src}`)" />
                   <p class="my-4">
                     {{ photo.desc }}
                   </p>
