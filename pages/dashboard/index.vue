@@ -98,11 +98,15 @@ export default {
       totalPortofolios: 0,
       totalHeroes: 0,
       totalShows: 0,
+      totalPromotions: 0,
+      totalYoutubes: 0,
 
       categories: 0,
       portofolios: 0,
       heroes: 0,
       shows: 0,
+      promotions: 0,
+      youtubes: 0,
 
       fetchingPhotos: false,
     }
@@ -129,12 +133,25 @@ export default {
             limit: 100,
           },
         })),
+        (this.youtubes = await this.$axios.get('/youtube', {
+          params: {
+            limit: 100,
+          },
+        })),
+        (this.promotions = await this.$axios.get('/promosi', {
+          params: {
+            limit: 100,
+          },
+        })),
         (this.totalCategories = this.categories.data.result.total)
       this.totalPortofolios = this.portofolios.data.result.total
       this.totalHeroes = this.heroes.data.result.total
       this.totalShows = this.shows.data.result.total
+      this.totalYoutubes = this.youtubes.data.result.total
+      this.totalPromotions = this.promotions.data.result.total
     } catch (error) {
       console.error('Error fetching photos:', error)
+      window.alert("An error occurred: " + error.message);
     }
   },
 }
