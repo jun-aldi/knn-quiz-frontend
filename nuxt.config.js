@@ -24,7 +24,9 @@ export default {
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     },
-
+    env: {
+        IMG_URL: process.env.IMG_URL || 'http://akaapi.cloud/'
+    },
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [
         '@/assets/css/main.css',
