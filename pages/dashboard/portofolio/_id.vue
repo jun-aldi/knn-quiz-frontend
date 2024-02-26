@@ -313,12 +313,6 @@
                   <div class="grid justify-center grid-cols-2 gap-4">
                     <button
                       type="button"
-                      class="p-2 bg-yellow-200 rounded-xl text-red btn btn-warning"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      type="button"
                       class="p-2 bg-red-200 rounded-xl text-red btn btn-danger"
                       @click="deletePhoto(photo.id)"
                     >
