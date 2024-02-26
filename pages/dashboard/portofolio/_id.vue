@@ -132,7 +132,7 @@
             <form class="w-full card" @submit.prevent="updatePortofolio">
               <div class="form-group">
                 <label for="" class="text-grey">Name</label>
-                <input type="text" v-model="portofolios.title" />
+                <input type="text"  class="input-field" v-model="portofolios.title" />
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Title</label>
@@ -170,7 +170,7 @@
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Description</label>
-                <textarea type="text" v-model="portofolios.desc" />
+                <textarea type="text"  class="input-field" v-model="portofolios.desc" />
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Year</label>
