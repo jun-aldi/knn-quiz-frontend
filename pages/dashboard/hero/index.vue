@@ -143,7 +143,7 @@
           v-for="hero in heroes.data.result.data"
         >
           <img
-            :src="'https://aka-backend.test/' + hero.photo.src"
+            :src="'https://akaapi.cloud/' + hero.photo.src"
             alt=""
             class="max-h-48"
           />
