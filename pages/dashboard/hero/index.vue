@@ -145,7 +145,7 @@
           <img
             :src="'https://akaapi.cloud/' + hero.photo.src"
             alt=""
-            class="max-h-48"
+            class="max-h-[200px]"
           />
           <div class="mt-6 mb-1 font-semibold text-center text-dark">
             {{ hero.photo.portofolio.title }}

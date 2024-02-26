@@ -96,7 +96,7 @@
         <!-- Card -->
         <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
           v-for="show in shows.data.result.data">
-          <img :src="'https://akaapi.cloud/' + show.photo.src" alt="" class="max-h-48" />
+          <img :src="'https://akaapi.cloud/' + show.photo.src" alt="" class="max-h-[200px]" />
           <div class="mt-6 mb-1 font-semibold text-center text-dark">
             {{ show.photo.portofolio.title }}
           </div>
@@ -245,6 +245,10 @@ export default {
         await this.fetch()
 
         this.isModalOpen = false
+        this.heros= {
+        portofolio_id: "",
+        photo_id: "",
+      };
 
         console.log(response)
       } catch (error) {
