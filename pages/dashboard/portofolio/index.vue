@@ -66,10 +66,15 @@
             {{ portofolio.portofolio_category.name }}
           </p>
         </div>
+        <div class="card md:min-h-[100px]">
+          <div class="m-auto text-center">
+            <button @click="loadMore" v-if="currentPage < lastPage" type="button" class="btn btn-primary">
+              Load More
+            </button>
+          </div>
+        </div>
       </div>
-      <button @click="loadMore" v-if="currentPage < lastPage">
-        Load More
-      </button>
+
     </section>
   </div>
 </template>
