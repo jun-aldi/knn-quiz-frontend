@@ -304,7 +304,7 @@
                     alt=""
                     class="max-h-[200px]"
                     @click.prevent="
-                      openFullPage('https://aka-backend.test/' + photo.src)
+                      openFullPage('https://akaapi.cloud/' + photo.src)
                     "
                   />
                   <p class="my-4">
