@@ -313,7 +313,7 @@
                   <div class="grid justify-center">
                     <button
                       type="button"
-                      class="p-2 bg-red-200 rounded-xl text-red btn btn-danger"
+                      class="p-3 bg-red-200 rounded-xl text-red btn btn-danger"
                       @click="deletePhoto(photo.id)"
                     >
                       Delete
