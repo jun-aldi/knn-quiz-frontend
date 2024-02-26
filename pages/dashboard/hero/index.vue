@@ -290,6 +290,12 @@ export default {
 
         this.isModalOpen = false
 
+        this.heros= {
+        portofolio_id: "",
+        photo_id: "",
+      };
+
+
         console.log(response)
       } catch (error) {
         console.log(error)
