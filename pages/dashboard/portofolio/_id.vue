@@ -310,7 +310,7 @@
                   <p class="my-4">
                     {{ photo.desc }}
                   </p>
-                  <div class="grid justify-center grid-cols-2 gap-4">
+                  <div class="grid justify-center">
                     <button
                       type="button"
                       class="p-2 bg-red-200 rounded-xl text-red btn btn-danger"
