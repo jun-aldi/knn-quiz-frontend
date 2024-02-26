@@ -72,7 +72,7 @@
         <!-- Card -->
         <div class="card py-6 md:!py-10 md:!px-[38px] !gap-y-0 relative" v-else
           v-for="category in categories.data.result.data">
-          <button @click="deleteCategory(category.id)" style="color: rgb(247, 108, 108);"
+          <button v-if="category.portofolio.length === 0" @click="deleteCategory(category.id)" style="color: rgb(247, 108, 108);"
             class="absolute text-3xl font-bold top-2 right-2">
             &#215;
           </button>
