@@ -58,7 +58,7 @@
             class="absolute inset-0 focus:ring-2 ring-primary rounded-[26px]"></NuxtLink>
 
           <img v-if="portofolio.photo.length > 0" :src="'https://akaapi.cloud/' + portofolio.photo[0].src" alt=""
-            class="max-h-48" />
+            class="max-h-36" />
           <div class="mt-6 mb-1 font-semibold text-center text-dark">
             {{ portofolio.title }}
           </div>
