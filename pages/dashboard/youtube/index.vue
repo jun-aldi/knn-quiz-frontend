@@ -1,18 +1,5 @@
 <template>
-  <div class="lg:pr-[70px] py-[50px] lg:ml-[320px] xl:ml-[365px] px-4 lg:pl-0">
-    <!-- Top Section -->
-    <section class="flex flex-col flex-wrap justify-between gap-6 md:items-center md:flex-row">
-      <div class="flex items-center justify-between gap-4">
-        <a href="#" id="toggleOpenSidebar" class="lg:hidden">
-          <svg class="w-6 h-6 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
-          </svg>
-        </a>
-        <div class="text-[32px] font-semibold text-dark">Youtube Section</div>
-      </div>
-    </section>
-
+  <div>
     <!-- Modal Section -->
     <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
       <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
@@ -44,7 +31,7 @@
       <div class="mb-[30px]">
         <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
           <div>
-            <div class="text-xl font-medium text-dark">Statistics</div>
+            <div class="text-4xl font-bold text-dark">Youtube</div>
             <p class="text-grey">Your Youtube Video</p>
 
           </div>
