@@ -24,9 +24,9 @@
                   {{ totalPortofolios}}
                 </div>
               </div>
-              <a href="employee_create.html">
+              <NuxtLink :to="{ name: 'dashboard-portofolio' }">
                 <img src="/assets/svgs/ric-plus.svg" alt="" />
-              </a>
+              </NuxtLink>
             </div>
           </div>
 
@@ -38,9 +38,9 @@
                   {{ totalCategories}}
                 </div>
               </div>
-              <a href="#">
+              <NuxtLink :to="{ name: 'dashboard-category' }">
                 <img src="/assets/svgs/ric-plus.svg" alt="" />
-              </a>
+              </NuxtLink>
             </div>
           </div>
 
@@ -52,23 +52,49 @@
                   {{ totalShows}}
                 </div>
               </div>
-              <a href="employee_create.html">
+              <NuxtLink :to="{ name: 'dashboard-portofolio' }">
                 <img src="/assets/svgs/ric-plus.svg" alt="" />
-              </a>
+              </NuxtLink>
             </div>
           </div>
 
           <div class="card !gap-y-10 min-h-[200px]">
             <div class="flex items-center justify-between">
               <div>
-                <p class="font-bold">Heroes Shows</p>
+                <p class="font-bold">Highlights Shows</p>
                 <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
                   {{ totalHeroes}}
                 </div>
               </div>
-              <a href="#">
+              <NuxtLink :to="{ name: 'dashboard-hero' }">
                 <img src="/assets/svgs/ric-plus.svg" alt="" />
-              </a>
+              </NuxtLink>
+            </div>
+          </div>
+          <div class="card !gap-y-10 min-h-[200px]">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-bold">Youtubes Shows</p>
+                <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
+                  {{ totalYoutubes}}
+                </div>
+              </div>
+              <NuxtLink :to="{ name: 'dashboard-youtube' }">
+                <img src="/assets/svgs/ric-plus.svg" alt="" />
+              </NuxtLink>
+            </div>
+          </div>
+          <div class="card !gap-y-10 min-h-[200px]">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-bold">Promotions Shows</p>
+                <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
+                  {{ totalPromotions}}
+                </div>
+              </div>
+              <NuxtLink :to="{ name: 'dashboard-promotion' }">
+                <img src="/assets/svgs/ric-plus.svg" alt="" />
+              </NuxtLink>
             </div>
           </div>
         </div>
