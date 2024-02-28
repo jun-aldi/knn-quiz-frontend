@@ -44,7 +44,7 @@
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-hero' }" class="nav-link sidebar-item" exact-active-class="active">
             <img src="/assets/svgs/ic-grid.svg" alt="" />
-            Hero Section
+            Highlight Section
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-portosection' }" class="nav-link sidebar-item" exact-active-class="active">
             <img src="/assets/svgs/ic-grid.svg" alt="" />

@@ -77,8 +77,8 @@
           class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row"
         >
           <div>
-            <div class="text-4xl font-bold text-dark">Heroes</div>
-            <p class="text-grey">Your heroes</p>
+            <div class="text-4xl font-bold text-dark">Highlights</div>
+            <p class="text-grey">Your highlights</p>
 
           </div>
           <button @click="openModal" class="btn btn-primary">Add Heroes</button>
