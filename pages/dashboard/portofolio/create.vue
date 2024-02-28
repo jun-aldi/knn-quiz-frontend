@@ -7,7 +7,7 @@
         <input type="text" class="input-field" v-model="portofolio.title" />
       </div>
       <div class="form-group">
-        <label for="" class="text-grey">Title</label>
+        <label for="" class="text-grey">Type</label>
         <input type="text" class="input-field" v-model="portofolio.subtitle" />
       </div>
 
