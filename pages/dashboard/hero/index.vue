@@ -81,7 +81,7 @@
             <p class="text-grey">Your highlights</p>
 
           </div>
-          <button @click="openModal" class="btn btn-primary">Add Heroes</button>
+          <button @click="openModal" class="btn btn-primary">Add Highlights</button>
         </div>
       </div>
 
