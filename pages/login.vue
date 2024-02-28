@@ -95,7 +95,7 @@ export default {
     try {
       let response = await this.$auth.loginWith('local', { data: this.login })
       // Save token to localStorage
-
+      this.$auth.$storage.setUniversal('user', response.data.user, true)
     } catch (err) {
       console.log(err)
       if (err.response && err.response.data && err.response.data.meta) {
