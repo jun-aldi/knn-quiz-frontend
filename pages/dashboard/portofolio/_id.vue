@@ -1,48 +1,42 @@
 <template>
   <section>
-    <button
-      v-if="$fetchState.pending"
-      disabled
-      type="button"
-      class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700"
-    >
-      <svg
-        aria-hidden="true"
-        role="status"
-        class="inline w-4 h-4 mr-3 text-gray-200 animate-spin"
-        viewBox="0 0 100 101"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+
+    <!-- Loading -->
+    <div v-if="isLoading" class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
+      <div class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg">
+        <div class="relative block w-20 h-5 mt-2 loader-dots">
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+        </div>
+        <div class="mt-2 text-xs font-medium text-center text-gray-500">
+          Loading...
+        </div>
+      </div>
+    </div>
+
+    <button v-if="$fetchState.pending" disabled type="button"
+      class="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+      <svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-gray-200 animate-spin" viewBox="0 0 100 101"
+        fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-          fill="currentColor"
-        />
+          fill="currentColor" />
         <path
           d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-          fill="#1C64F2"
-        />
+          fill="#1C64F2" />
       </svg>
       Loading...
     </button>
     <!-- Main Content -->
-    <div
-      v-else
-      class=""
-    >
+    <div v-else class="">
       <!-- Top Section -->
 
       <!-- Modal Section -->
-      <div
-        v-if="isModalOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center"
-      >
-        <div
-          class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"
-        ></div>
-        <div
-          class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md"
-        >
+      <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+        <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
           <!-- Modal content goes here -->
           <div class="px-6 py-4 text-left modal-content">
             <div class="flex items-center justify-between pb-3">
@@ -53,33 +47,17 @@
             </div>
             <!-- Add your photo upload form or any other content here -->
             <form @submit.prevent="addPhoto">
-              <label
-                for="dropzone-file"
-                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-              >
-                <div
-                  class="flex flex-col items-center justify-center pt-5 pb-6"
-                >
-                  <img
-                    v-if="previewImageUrl"
-                    :src="previewImageUrl"
-                    alt="Uploaded Preview"
-                    class="w-16 h-16 mb-4 rounded-full"
-                  />
-                  <svg
-                    v-else
-                    class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 16"
-                  >
+              <label for="dropzone-file"
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <img v-if="previewImageUrl" :src="previewImageUrl" alt="Uploaded Preview"
+                    class="w-16 h-16 mb-4 rounded-full" />
+                  <svg v-else class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                     <!-- Your SVG path here -->
                   </svg>
                   <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span v-if="previewImageUrl" class="font-semibold"
-                      >Image Uploaded</span
-                    >
+                    <span v-if="previewImageUrl" class="font-semibold">Image Uploaded</span>
                     <span v-else class="font-semibold">Click to upload</span> or
                     drag and drop
                   </p>
@@ -87,21 +65,14 @@
                     WEBP or JPEG (MAX. 1MB)
                   </p>
                 </div>
-                <input
-                  id="dropzone-file"
-                  type="file"
-                  class="hidden"
-                  @change="handleFileUpload"
-                />
+                <input id="dropzone-file" type="file" class="hidden" @change="handleFileUpload" />
               </label>
               <div class="my-4 form-group">
                 <label for="" class="text-grey">Description</label>
                 <textarea type="text" class="input-field" v-model="descPhoto" />
               </div>
-              <button
-                type="submit"
-                class="text-white bg-brightYellow focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-2"
-              >
+              <button type="submit"
+                class="text-white bg-brightYellow focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-2">
                 Submit
               </button>
             </form>
@@ -110,16 +81,9 @@
       </div>
 
       <!-- Modal Section -->
-      <div
-        v-if="isModalEditOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center"
-      >
-        <div
-          class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"
-        ></div>
-        <div
-          class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md"
-        >
+      <div v-if="isModalEditOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+        <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
           <!-- Modal content goes here -->
           <div class="px-6 py-4 text-left modal-content">
             <div class="flex items-center justify-between pb-3">
@@ -132,53 +96,34 @@
             <form class="w-full card" @submit.prevent="updatePortofolio">
               <div class="form-group">
                 <label for="" class="text-grey">Name</label>
-                <input type="text"  class="input-field" v-model="portofolios.title" />
+                <input type="text" class="input-field" v-model="portofolios.title" />
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Title</label>
-                <input
-                  type="text"
-                  class="input-field"
-                  v-model="portofolios.subtitle"
-                />
+                <input type="text" class="input-field" v-model="portofolios.subtitle" />
               </div>
 
               <div class="form-group">
                 <label for="" class="text-grey">Category</label>
                 <p v-if="$fetchState.pending">Fetching roles...</p>
-                <select
-                  v-else
-                  name="roles"
-                  v-model="portofolios.portofolio_category_id"
-                  class="appearance-none input-field form-icon-chevron_down"
-                >
-                  <option
-                    :value="category.id"
-                    v-for="category in categories.data.result.data"
-                  >
+                <select v-else name="roles" v-model="portofolios.portofolio_category_id"
+                  class="appearance-none input-field form-icon-chevron_down">
+                  <option :value="category.id" v-for="category in categories.data.result.data">
                     {{ category.name }}
                   </option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Location</label>
-                <input
-                  type="text"
-                  class="input-field"
-                  v-model="portofolios.location"
-                />
+                <input type="text" class="input-field" v-model="portofolios.location" />
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Description</label>
-                <textarea type="text"  class="input-field" v-model="portofolios.desc" />
+                <textarea type="text" class="input-field" v-model="portofolios.desc" />
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Year</label>
-                <input
-                  type="number"
-                  class="input-field"
-                  v-model="portofolios.year"
-                />
+                <input type="number" class="input-field" v-model="portofolios.year" />
               </div>
               <button type="submit" class="w-full btn btn-primary mt-[14px]">
                 Update
@@ -195,9 +140,7 @@
         <section class="pt-[10px]">
           <!-- Section Header -->
           <div class="mb-[30px]">
-            <div
-              class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row"
-            >
+            <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
               <div>
                 <div class="text-4xl font-bold text-dark">
                   {{ portofolios.title }}
@@ -208,10 +151,7 @@
                 </p>
               </div>
               <div class="flex-row">
-                <button
-                  @click="deletePortofolio(portofolios.id)"
-                  class="text-white bg-red-400 btn"
-                >
+                <button @click="deletePortofolio(portofolios.id)" class="text-white bg-red-400 btn">
                   Delete
                 </button>
                 <button @click="openEditModal" class="btn btn-primary">
@@ -270,28 +210,17 @@
               </div>
             </div>
             <div class="grid gap-6 md:grid-cols-3">
-              <div
-                v-for="photo in portofolios.photo"
-                class="card md:min-h-[400px]"
-              >
+              <div v-for="photo in portofolios.photo" class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
-                  <img
-                    :src="'https://akaapi.cloud/' + photo.src"
-                    alt=""
-                    class="max-h-[200px]"
-                    @click.prevent="
-                      openFullPage('https://akaapi.cloud/' + photo.src)
-                    "
-                  />
+                  <img :src="'https://akaapi.cloud/' + photo.src" alt="" class="max-h-[200px]" @click.prevent="
+                    openFullPage('https://akaapi.cloud/' + photo.src)
+                    " />
                   <p class="my-4">
                     {{ photo.desc }}
                   </p>
                   <div class="grid justify-center">
-                    <button
-                      type="button"
-                      class="p-3 bg-red-200 rounded-xl text-red btn btn-danger"
-                      @click="deletePhoto(photo.id)"
-                    >
+                    <button type="button" class="p-3 bg-red-200 rounded-xl text-red btn btn-danger"
+                      @click="deletePhoto(photo.id)">
                       Delete
                     </button>
                   </div>
@@ -300,11 +229,7 @@
 
               <div class="card md:min-h-[100px]">
                 <div class="m-auto text-center">
-                  <button
-                    type="button"
-                    class="btn btn-primary"
-                    @click="openModal"
-                  >
+                  <button type="button" class="btn btn-primary" @click="openModal">
                     Add Photo
                   </button>
                 </div>
@@ -327,6 +252,7 @@ export default {
   middleware: 'auth',
   data() {
     return {
+      isLoading: false,
       categories: [],
       fullPageImageUrl: '',
       isFullPageVisible: false,
@@ -345,17 +271,17 @@ export default {
   async fetch() {
     try {
       const response = await this.$axios.get('/portofolio', {
-      params: {
-        id: this.$route.params.id,
-        limit: 100,
-      },
-    })
-    this.portofolios = response.data.result
-    this.categories = await this.$axios.get('/category', {
-      params: {
-        limit: 100,
-      },
-    })
+        params: {
+          id: this.$route.params.id,
+          limit: 100,
+        },
+      })
+      this.portofolios = response.data.result
+      this.categories = await this.$axios.get('/category', {
+        params: {
+          limit: 100,
+        },
+      })
     } catch (error) {
       window.alert("An error occurred: " + error.message);
     }
@@ -373,10 +299,13 @@ export default {
         await this.fetch()
         // Close the modal
         this.isModalEditOpen = false
+        this.isLoading = true
       } catch (error) {
         console.error(error)
         window.alert("An error occurred: " + error.message);
-      }
+      }  finally {
+          this.isLoading = false
+        }
     },
 
     openFullPage(imageUrl) {
@@ -409,17 +338,17 @@ export default {
     async fetch() {
       try {
         const response = await this.$axios.get('/portofolio', {
-        params: {
-          id: this.$route.params.id,
-          limit: 100,
-        },
-      })
-      this.portofolios = response.data.result
-      this.categories = await this.$axios.get('/category', {
-        params: {
-          limit: 100,
-        },
-      })
+          params: {
+            id: this.$route.params.id,
+            limit: 100,
+          },
+        })
+        this.portofolios = response.data.result
+        this.categories = await this.$axios.get('/category', {
+          params: {
+            limit: 100,
+          },
+        })
       } catch (error) {
         window.alert("An error occurred: " + error.message);
       }
@@ -433,6 +362,7 @@ export default {
 
       // If the user confirms, proceed with deletion
       if (isConfirmed) {
+        this.isLoading = true
         try {
           // Make a DELETE request to the /photo endpoint with the photo ID to delete
           await this.$axios.delete(`/photo/${photoId}`)
@@ -447,6 +377,8 @@ export default {
         } catch (error) {
           // Handle errors, such as displaying an error message
           console.error('Error deleting photo:', error)
+        }       finally {
+          this.isLoading = false
         }
       }
     },
@@ -459,6 +391,7 @@ export default {
 
       // If the user confirms, proceed with deletion
       if (isConfirmed) {
+        this.isLoading = true
         try {
           // Fetch the portfolio data to get the associated photo IDs
           const portfolioData = await this.$axios.get('/portofolio', {
@@ -519,6 +452,8 @@ export default {
           // Handle errors, such as displaying an error message
           console.error('Error deleting photo:', error)
           window.alert("An error occurred: " + error.message);
+        }         finally {
+          this.isLoading = false
         }
       }
     },
@@ -530,6 +465,7 @@ export default {
           console.error('Please upload an image.')
           return
         }
+        this.isLoading = true
 
         // Create FormData object
         let formData = new FormData()
@@ -555,14 +491,16 @@ export default {
         // Close the modal
         this.isModalOpen = false
 
+
       } catch (error) {
         console.error(error)
-        if (err.response && err.response.data && err.response.data.meta) {
-        window.alert("An error occurred: " + err.response.data.meta.message);
-      } else {
-        window.alert("An error occurred");
-      }
-
+        if (error.response && error.response.data && error.response.data.meta) {
+          window.alert("An error occurred: " + error.response.data.meta.message);
+        } else {
+          window.alert("An error occurred");
+        }
+      } finally {
+        this.isLoading = false
       }
     },
 
@@ -585,14 +523,14 @@ export default {
       this.isModalOpen = true
     },
     closeModal() {
-      ;(this.previewImageUrl = null), (this.isModalOpen = false)
+      ; (this.previewImageUrl = null), (this.isModalOpen = false)
     },
     openEditModal() {
       this.isModalEditOpen = true
     },
     closeEditModal() {
       this.fetch()
-      ;(this.previewImageUrl = null), (this.isModalEditOpen = false)
+        ; (this.previewImageUrl = null), (this.isModalEditOpen = false)
     },
   },
 }
@@ -620,5 +558,60 @@ export default {
   height: auto;
   object-fit: contain;
   /* Ensure the image maintains its aspect ratio and fits within the container */
+}
+</style>
+<style>
+.loader-dots div {
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader-dots div:nth-child(1) {
+  left: 8px;
+  animation: loader-dots1 0.6s infinite;
+}
+
+.loader-dots div:nth-child(2) {
+  left: 8px;
+  animation: loader-dots2 0.6s infinite;
+}
+
+.loader-dots div:nth-child(3) {
+  left: 32px;
+  animation: loader-dots2 0.6s infinite;
+}
+
+.loader-dots div:nth-child(4) {
+  left: 56px;
+  animation: loader-dots3 0.6s infinite;
+}
+
+@keyframes loader-dots1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes loader-dots3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes loader-dots2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(24px, 0);
+  }
 }
 </style>

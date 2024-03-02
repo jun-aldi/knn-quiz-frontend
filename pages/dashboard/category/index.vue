@@ -1,76 +1,126 @@
 <template>
-  <div class="">
-
-
-
-    <!-- Modal Section -->
-    <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
-      <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
-      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
-        <!-- Modal content goes here -->
-        <div class="px-6 py-4 text-left modal-content">
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Add Categories</p>
-            <button @click="closeModal" class="text-3xl font-bold">
-              &#215;
-            </button>
-          </div>
-          <!-- Add your photo upload form or any other content here -->
-          <form class="w-full card" @submit.prevent="addCategories">
-            <div class="form-group">
-              <label for="" class="text-grey">Name</label>
-              <input type="text" class="input-field" v-model="category.name" />
-            </div>
-            <button type="submit" class="w-full btn btn-primary mt-[14px]">
-              Add
-            </button>
-          </form>
+  <section>
+    <!-- Loading -->
+    <div
+      v-if="isLoading"
+      class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen"
+    >
+      <div
+        class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg"
+      >
+        <div class="relative block w-20 h-5 mt-2 loader-dots">
+          <div
+            class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"
+          ></div>
+          <div
+            class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"
+          ></div>
+          <div
+            class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"
+          ></div>
+          <div
+            class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"
+          ></div>
+        </div>
+        <div class="mt-2 text-xs font-medium text-center text-gray-500">
+          Loading...
         </div>
       </div>
     </div>
 
-    <section class="pt-[50px]">
-      <!-- Section Header -->
-      <div class="mb-[30px]">
-        <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
-          <div>
-            <div class="text-4xl font-bold text-dark">Portofolio Category</div>
-            <p class="text-grey">Your category</p>
-          </div>
-          <button @click="openModal" class="btn btn-primary">Add Category</button>
-        </div>
-      </div>
-
-
-    </section>
-
-    <section class="pt-[50px]">
-      <!-- Section Header -->
-      <div class="mb-[30px]">
-        <div class="flex items-center justify-between gap-6">
-          <div>
-            <div class="text-xl font-medium text-dark">Categories</div>
-            <p class="text-grey">The Art of Design</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
-        <p v-if="$fetchState.pending">Fetching categories...</p>
-        <div v-else class="card py-6 md:!py-10 md:!px-[38px] !gap-y-0 relative"
-          v-for="category in categories.data.result.data">
-          <button v-if="category.portofolio.length === 0" @click="deleteCategory(category.id)" style="color: rgb(247, 108, 108);"
-            class="absolute text-3xl font-bold top-2 right-2">
-            &#215;
-          </button>
-          <div class="m-auto font-bold text-center text-brightYellow">
-            {{ category.name }}
+    <div class="">
+      <!-- Modal Section -->
+      <div
+        v-if="isModalOpen"
+        class="fixed inset-0 z-50 flex items-center justify-center"
+      >
+        <div
+          class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"
+        ></div>
+        <div
+          class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md"
+        >
+          <!-- Modal content goes here -->
+          <div class="px-6 py-4 text-left modal-content">
+            <div class="flex items-center justify-between pb-3">
+              <p class="text-2xl font-bold">Add Categories</p>
+              <button @click="closeModal" class="text-3xl font-bold">
+                &#215;
+              </button>
+            </div>
+            <!-- Add your photo upload form or any other content here -->
+            <form class="w-full card" @submit.prevent="addCategories">
+              <div class="form-group">
+                <label for="" class="text-grey">Name</label>
+                <input
+                  type="text"
+                  class="input-field"
+                  v-model="category.name"
+                />
+              </div>
+              <button type="submit" class="w-full btn btn-primary mt-[14px]">
+                Add
+              </button>
+            </form>
           </div>
         </div>
       </div>
 
-    </section>
-  </div>
+      <section class="pt-[50px]">
+        <!-- Section Header -->
+        <div class="mb-[30px]">
+          <div
+            class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row"
+          >
+            <div>
+              <div class="text-4xl font-bold text-dark">
+                Portofolio Category
+              </div>
+              <p class="text-grey">Your category</p>
+            </div>
+            <button @click="openModal" class="btn btn-primary">
+              Add Category
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="pt-[50px]">
+        <!-- Section Header -->
+        <div class="mb-[30px]">
+          <div class="flex items-center justify-between gap-6">
+            <div>
+              <div class="text-xl font-medium text-dark">Categories</div>
+              <p class="text-grey">The Art of Design</p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3"
+        >
+          <p v-if="$fetchState.pending">Fetching categories...</p>
+          <div
+            v-else
+            class="card py-6 md:!py-10 md:!px-[38px] !gap-y-0 relative"
+            v-for="category in categories.data.result.data"
+          >
+            <button
+              v-if="category.portofolio.length === 0"
+              @click="deleteCategory(category.id)"
+              style="color: rgb(247, 108, 108)"
+              class="absolute text-3xl font-bold top-2 right-2"
+            >
+              &#215;
+            </button>
+            <div class="m-auto font-bold text-center text-brightYellow">
+              {{ category.name }}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -79,10 +129,11 @@ export default {
   middleware: 'auth',
   data() {
     return {
+      isLoading: false,
       categories: [],
       isModalOpen: false,
       category: {
-        name: ''
+        name: '',
       },
     }
   },
@@ -91,13 +142,13 @@ export default {
       this.categories = await this.$axios.get('/category', {
         params: {
           limit: 100,
-        }
+        },
       })
     } catch (error) {
-      window.alert("An error occurred: " + error.message);
+      window.alert('An error occurred: ' + error.message)
     }
-  }, methods: {
-
+  },
+  methods: {
     async deleteCategory(categoryId) {
       // Display a confirmation dialog
       const isConfirmed = window.confirm(
@@ -106,6 +157,7 @@ export default {
 
       // If the user confirms, proceed with deletion
       if (isConfirmed) {
+        this.isLoading = true
         try {
           // Make a DELETE request to the /photo endpoint with the photo ID to delete
           await this.$axios.delete(`/category/${categoryId}`)
@@ -120,7 +172,9 @@ export default {
         } catch (error) {
           // Handle errors, such as displaying an error message
           console.error('Error deleting hero:', error)
-          window.alert("An error occurred: " + error.message);
+          window.alert('An error occurred: ' + error.message)
+        } finally {
+          this.isLoading = false
         }
       }
     },
@@ -128,32 +182,26 @@ export default {
     async fetch() {
       try {
         this.categories = await this.$axios.get('/category', {
-        params: {
-          limit: 100,
-        }
-      })
+          params: {
+            limit: 100,
+          },
+        })
       } catch (error) {
-        window.alert("An error occurred: " + error.message);
+        window.alert('An error occurred: ' + error.message)
       }
-
     },
-
-
 
     openModal() {
       this.isModalOpen = true
     },
 
-
-
     closeModal() {
-      (this.isModalOpen = false)
+      this.isModalOpen = false
     },
-
-
 
     async addCategories() {
       try {
+        this.isLoading = true
         // Use $axios.put for updating an existing resource
         let response = await this.$axios.post('/category', this.category)
 
@@ -164,10 +212,66 @@ export default {
         console.log(response)
       } catch (error) {
         console.error(error)
-        window.alert("An error occurred: " + error.message);
+        window.alert('An error occurred: ' + error.message)
+      } finally {
+        this.isLoading = false
       }
     },
-
-  }
+  },
 }
 </script>
+<style>
+.loader-dots div {
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader-dots div:nth-child(1) {
+  left: 8px;
+  animation: loader-dots1 0.6s infinite;
+}
+
+.loader-dots div:nth-child(2) {
+  left: 8px;
+  animation: loader-dots2 0.6s infinite;
+}
+
+.loader-dots div:nth-child(3) {
+  left: 32px;
+  animation: loader-dots2 0.6s infinite;
+}
+
+.loader-dots div:nth-child(4) {
+  left: 56px;
+  animation: loader-dots3 0.6s infinite;
+}
+
+@keyframes loader-dots1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes loader-dots3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes loader-dots2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+</style>

@@ -1,83 +1,102 @@
 <template>
-  <div>
-    <!-- Modal Section -->
-    <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
-      <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
-      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
-        <!-- Modal content goes here -->
-        <div class="px-6 py-4 text-left modal-content">
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Add Youtube Video</p>
-            <button @click="closeModal" class="text-3xl font-bold">
-              &#215;
-            </button>
-          </div>
-          <!-- Add your photo upload form or any other content here -->
-          <form class="w-full card" @submit.prevent="addYoutube">
-            <div class="form-group">
-              <label for="" class="text-grey">Youtube Video URL</label>
-              <input type="text" class="input-field" v-model="addYoutubes.src" />
-            </div>
-            <button type="submit" class="w-full btn btn-primary mt-[14px]">
-              Add
-            </button>
-          </form>
+  <section>
+    <!-- Loading -->
+    <div v-if="isLoading" class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
+      <div class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg">
+        <div class="relative block w-20 h-5 mt-2 loader-dots">
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+        </div>
+        <div class="mt-2 text-xs font-medium text-center text-gray-500">
+          Loading...
         </div>
       </div>
     </div>
 
-    <section class="pt-[50px]">
-      <!-- Section Header -->
-      <div class="mb-[30px]">
-        <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
-          <div>
-            <div class="text-4xl font-bold text-dark">Youtube</div>
-            <p class="text-grey">Your Youtube Video</p>
 
+
+    <div>
+      <!-- Modal Section -->
+      <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+        <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
+          <!-- Modal content goes here -->
+          <div class="px-6 py-4 text-left modal-content">
+            <div class="flex items-center justify-between pb-3">
+              <p class="text-2xl font-bold">Add Youtube Video</p>
+              <button @click="closeModal" class="text-3xl font-bold">
+                &#215;
+              </button>
+            </div>
+            <!-- Add your photo upload form or any other content here -->
+            <form class="w-full card" @submit.prevent="addYoutube">
+              <div class="form-group">
+                <label for="" class="text-grey">Youtube Video URL</label>
+                <input type="text" class="input-field" v-model="addYoutubes.src" />
+              </div>
+              <button type="submit" class="w-full btn btn-primary mt-[14px]">
+                Add
+              </button>
+            </form>
           </div>
-          <button @click="openModal" class="btn btn-primary">Add Youtube</button>
         </div>
       </div>
 
-      <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-1 lg:gap-11">
-        <div class="card !gap-y-10">
-          <div class="flex items-center justify-between">
+      <section class="pt-[50px]">
+        <!-- Section Header -->
+        <div class="mb-[30px]">
+          <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
             <div>
-              <p class="text-grey">In Total</p>
+              <div class="text-4xl font-bold text-dark">Youtube</div>
+              <p class="text-grey">Your Youtube Video</p>
 
-              <div v-if="youtubes" class="text-[32px] font-bold text-brightYellow mt-[6px]">{{ totalYoutubes }}</div>
+            </div>
+            <button @click="openModal" class="btn btn-primary">Add Youtube</button>
+          </div>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-1 lg:gap-11">
+          <div class="card !gap-y-10">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-grey">In Total</p>
+
+                <div v-if="youtubes" class="text-[32px] font-bold text-brightYellow mt-[6px]">{{ totalYoutubes }}</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="pt-[50px]">
-      <!-- Section Header -->
-      <div class="mb-[30px]">
-        <div class="flex items-center justify-between gap-6">
-          <div>
-            <div class="text-xl font-medium text-dark">Youtubes</div>
-            <p class="text-grey">Display</p>
+      <section class="pt-[50px]">
+        <!-- Section Header -->
+        <div class="mb-[30px]">
+          <div class="flex items-center justify-between gap-6">
+            <div>
+              <div class="text-xl font-medium text-dark">Youtubes</div>
+              <p class="text-grey">Display</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
-        <p v-if="$fetchState.pending">Fetching youtubes...</p>
-        <!-- Card -->
-        <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
-          v-for="youtube in youtubes.data.result.data">
-          <youtube :video-id="getYoutubeVideoId(youtube.src)" :player-width="250" :player-height="300" @ready="ready"
-            @playing="playing">
-          </youtube>
-          <button @click="deleteYoutube(youtube.id)" class="my-4 text-white bg-red-400 btn">
-            Delete
-          </button>
+        <div class="grid grid-cols-1 gap-2 sm:grid-cols-1 lg:grid-cols-2 xl:gap-5 lg:gap-3">
+          <p v-if="$fetchState.pending">Fetching youtubes...</p>
+          <!-- Card -->
+          <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
+            v-for="youtube in youtubes.data.result.data">
+            <youtube :video-id="getYoutubeVideoId(youtube.src)" :player-width="250" :player-height="300" @ready="ready"
+              @playing="playing">
+            </youtube>
+            <button @click="deleteYoutube(youtube.id)" class="my-4 text-white bg-red-400 btn">
+              Delete
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -90,6 +109,7 @@ export default {
   data() {
     return {
       isModalOpen: false,
+      isLoading: false,
       totalYoutubes: 0,
       youtubes: [],
       addYoutubes: {
@@ -127,9 +147,9 @@ export default {
       const isConfirmed = window.confirm(
         'Are you sure you want to delete this youtube video?'
       )
-
       // If the user confirms, proceed with deletion
       if (isConfirmed) {
+        this.isLoading = true
         try {
           // Make a DELETE request to the /photo endpoint with the photo ID to delete
           await this.$axios.delete(`/youtube/${youtubeId}`)
@@ -145,6 +165,8 @@ export default {
           // Handle errors, such as displaying an error message
           console.error('Error deleting youtube:', error)
           window.alert("An error occurred: " + error.message);
+        } finally {
+          this.isLoading = false
         }
       }
     },
@@ -176,6 +198,7 @@ export default {
     },
     // add Heroes
     async addYoutube() {
+      this.isLoading = true
       try {
         // Send Registration Data to Server
         let response = await this.$axios.post('/youtube', this.addYoutubes)
@@ -189,8 +212,69 @@ export default {
         console.log(error)
         console.error('Error:', error)
         window.alert("An error occurred: " + error.message);
+      } finally {
+        this.isLoading = false
+        this.addYoutubes = {
+        src: null,
+      };
       }
     },
   },
 }
 </script>
+<!-- This is an example component -->
+<style>
+.loader-dots div {
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader-dots div:nth-child(1) {
+  left: 8px;
+  animation: loader-dots1 0.6s infinite;
+}
+
+.loader-dots div:nth-child(2) {
+  left: 8px;
+  animation: loader-dots2 0.6s infinite;
+}
+
+.loader-dots div:nth-child(3) {
+  left: 32px;
+  animation: loader-dots2 0.6s infinite;
+}
+
+.loader-dots div:nth-child(4) {
+  left: 56px;
+  animation: loader-dots3 0.6s infinite;
+}
+
+@keyframes loader-dots1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes loader-dots3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes loader-dots2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+</style>

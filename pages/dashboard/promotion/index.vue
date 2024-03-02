@@ -1,104 +1,121 @@
 <template>
-  <div>
-
-    <!-- Modal Section -->
-    <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
-      <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
-      <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
-        <!-- Modal content goes here -->
-        <div class="px-6 py-4 text-left modal-content">
-          <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">Add Photo Promotion</p>
-            <button @click="closeModal" class="text-3xl font-bold">
-              &#215;
-            </button>
-          </div>
-          <!-- Add your photo upload form or any other content here -->
-          <form @submit.prevent="addPromotion">
-            <label for="dropzone-file"
-              class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-              <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                <img v-if="previewImageUrl" :src="previewImageUrl" alt="Uploaded Preview"
-                  class="w-16 h-16 mb-4 rounded-full" />
-                <svg v-else class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                  <!-- Your SVG path here -->
-                </svg>
-                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                  <span v-if="previewImageUrl" class="font-semibold">Image Uploaded</span>
-                  <span v-else class="font-semibold">Click to upload</span> or
-                  drag and drop
-                </p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">
-                  WEBP or JPEG (MAX. 1MB)
-                </p>
-              </div>
-              <input id="dropzone-file" type="file" class="hidden" @change="handleFileUpload" />
-            </label>
-            <button type="submit"
-              class="text-white bg-brightYellow focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-2">
-              Add Promotion
-            </button>
-          </form>
+  <section>
+        <!-- Loading -->
+        <div v-if="isLoading" class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
+      <div class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg">
+        <div class="relative block w-20 h-5 mt-2 loader-dots">
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+        </div>
+        <div class="mt-2 text-xs font-medium text-center text-gray-500">
+          Loading...
         </div>
       </div>
     </div>
 
-    <section class="pt-[50px]">
-      <!-- Section Header -->
-      <div class="mb-[30px]">
-        <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
-          <div>
-            <div class="text-4xl font-bold text-dark">Promotions</div>
-            <p class="text-grey">Your promotions</p>
+
+    <div>
+      <!-- Modal Section -->
+      <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+        <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
+          <!-- Modal content goes here -->
+          <div class="px-6 py-4 text-left modal-content">
+            <div class="flex items-center justify-between pb-3">
+              <p class="text-2xl font-bold">Add Photo Promotion</p>
+              <button @click="closeModal" class="text-3xl font-bold">
+                &#215;
+              </button>
+            </div>
+            <!-- Add your photo upload form or any other content here -->
+            <form @submit.prevent="addPromotion">
+              <label for="dropzone-file"
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <img v-if="previewImageUrl" :src="previewImageUrl" alt="Uploaded Preview"
+                    class="w-16 h-16 mb-4 rounded-full" />
+                  <svg v-else class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                    <!-- Your SVG path here -->
+                  </svg>
+                  <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span v-if="previewImageUrl" class="font-semibold">Image Uploaded</span>
+                    <span v-else class="font-semibold">Click to upload</span> or
+                    drag and drop
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                    WEBP or JPEG (MAX. 1MB)
+                  </p>
+                </div>
+                <input id="dropzone-file" type="file" class="hidden" @change="handleFileUpload" />
+              </label>
+              <button type="submit"
+                class="text-white bg-brightYellow focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-2">
+                Add Promotion
+              </button>
+            </form>
           </div>
-          <button @click="openModal" class="btn btn-primary">
-            Add Promotion
-          </button>
         </div>
       </div>
 
-      <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-1 lg:gap-11">
-        <div class="card !gap-y-10">
-          <div class="flex items-center justify-between">
+      <section class="pt-[50px]">
+        <!-- Section Header -->
+        <div class="mb-[30px]">
+          <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
             <div>
-              <p class="text-grey">In Total</p>
+              <div class="text-4xl font-bold text-dark">Promotions</div>
+              <p class="text-grey">Your promotions</p>
+            </div>
+            <button @click="openModal" class="btn btn-primary">
+              Add Promotion
+            </button>
+          </div>
+        </div>
 
-              <div v-if="promotions" class="text-[32px] font-bold text-brightYellow mt-[6px]">
-                {{ totalPromotions }}
+        <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-1 lg:gap-11">
+          <div class="card !gap-y-10">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-grey">In Total</p>
+
+                <div v-if="promotions" class="text-[32px] font-bold text-brightYellow mt-[6px]">
+                  {{ totalPromotions }}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="pt-[50px]">
-      <!-- Section Header -->
-      <div class="mb-[30px]">
-        <div class="flex items-center justify-between gap-6">
-          <div>
-            <div class="text-xl font-medium text-dark">Promotions</div>
-            <p class="text-grey">Display</p>
+      <section class="pt-[50px]">
+        <!-- Section Header -->
+        <div class="mb-[30px]">
+          <div class="flex items-center justify-between gap-6">
+            <div>
+              <div class="text-xl font-medium text-dark">Promotions</div>
+              <p class="text-grey">Display</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
-        <p v-if="$fetchState.pending">Fetching promotions...</p>
-        <!-- Card -->
-        <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
-          v-for="promotion in promotions.data.result.data">
-          <img :src="'https://akaapi.cloud/' + promotion.src" alt="" class="max-h-[200px]" @click.prevent="
-            openFullPage('https://akaapi.cloud/' + promotion.src)
-            " />
-          <button @click="deletePromotion(promotion.id)" class="my-4 text-white bg-red-400 btn">
-            Delete
-          </button>
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
+          <p v-if="$fetchState.pending">Fetching promotions...</p>
+          <!-- Card -->
+          <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
+            v-for="promotion in promotions.data.result.data">
+            <img :src="'https://akaapi.cloud/' + promotion.src" alt="" class="max-h-[200px]" @click.prevent="
+              openFullPage('https://akaapi.cloud/' + promotion.src)
+              " />
+            <button @click="deletePromotion(promotion.id)" class="my-4 text-white bg-red-400 btn">
+              Delete
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -107,6 +124,9 @@ export default {
   middleware: 'auth',
   data() {
     return {
+      loginError: '',
+      isLoading: false,
+      isModalOpen: false,
       fullPageImageUrl: '',
       isFullPageVisible: false,
       savedScrollPosition: 0,
@@ -141,6 +161,7 @@ export default {
 
       // If the user confirms, proceed with deletion
       if (isConfirmed) {
+        this.isLoading = true
         try {
           // Make a DELETE request to the /photo endpoint with the photo ID to delete
           await this.$axios.delete(`/promosi/${promotionId}`)
@@ -156,6 +177,9 @@ export default {
           // Handle errors, such as displaying an error message
           console.error('Error deleting promosi:', error)
           window.alert('An error occurred while deleting promosi: ' + error.message);
+        } finally
+        {
+          this.isLoading = false
         }
       }
     },
@@ -178,6 +202,7 @@ export default {
 
     async addPromotion() {
       try {
+        this.isLoading = true
         // Ensure that srcPhoto is set to the correct file data
         if (!this.srcPhoto) {
           console.error('Please upload an image.')
@@ -204,10 +229,17 @@ export default {
         // Close the modal
         this.isModalOpen = false
 
-        console.log(response)
       } catch (error) {
         console.error(error)
-        window.alert('An error occurred while add promotion: ' + error.message);
+        if (error.response && error.response.data && error.response.data.meta) {
+        this.loginError = "An error occurred: " + error.response.data.meta.message;
+      } else {
+        this.loginError = "An unknown error occurred.";
+      }
+        window.alert('An error occurred while add promotion: ' + this.loginError);
+      }
+      finally {
+        this.isLoading = false
       }
     },
 
@@ -279,5 +311,60 @@ export default {
   height: auto;
   object-fit: contain;
   /* Ensure the image maintains its aspect ratio and fits within the container */
+}
+</style>
+<style>
+.loader-dots div {
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader-dots div:nth-child(1) {
+  left: 8px;
+  animation: loader-dots1 0.6s infinite;
+}
+
+.loader-dots div:nth-child(2) {
+  left: 8px;
+  animation: loader-dots2 0.6s infinite;
+}
+
+.loader-dots div:nth-child(3) {
+  left: 32px;
+  animation: loader-dots2 0.6s infinite;
+}
+
+.loader-dots div:nth-child(4) {
+  left: 56px;
+  animation: loader-dots3 0.6s infinite;
+}
+
+@keyframes loader-dots1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes loader-dots3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes loader-dots2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(24px, 0);
+  }
 }
 </style>
