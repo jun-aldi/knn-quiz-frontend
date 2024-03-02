@@ -1,26 +1,13 @@
 <template>
   <section>
     <!-- Loading -->
-    <div
-      v-if="isLoading"
-      class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen"
-    >
-      <div
-        class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg"
-      >
+    <div v-if="isLoading" class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
+      <div class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg">
         <div class="relative block w-20 h-5 mt-2 loader-dots">
-          <div
-            class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"
-          ></div>
-          <div
-            class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"
-          ></div>
-          <div
-            class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"
-          ></div>
-          <div
-            class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"
-          ></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
         </div>
         <div class="mt-2 text-xs font-medium text-center text-gray-500">
           Loading...
@@ -30,16 +17,9 @@
 
     <div class="">
       <!-- Modal Section -->
-      <div
-        v-if="isModalOpen"
-        class="fixed inset-0 z-50 flex items-center justify-center"
-      >
-        <div
-          class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"
-        ></div>
-        <div
-          class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md"
-        >
+      <div v-if="isModalOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+        <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
           <!-- Modal content goes here -->
           <div class="px-6 py-4 text-left modal-content">
             <div class="flex items-center justify-between pb-3">
@@ -52,11 +32,7 @@
             <form class="w-full card" @submit.prevent="addCategories">
               <div class="form-group">
                 <label for="" class="text-grey">Name</label>
-                <input
-                  type="text"
-                  class="input-field"
-                  v-model="category.name"
-                />
+                <input type="text" class="input-field" v-model="category.name" />
               </div>
               <button type="submit" class="w-full btn btn-primary mt-[14px]">
                 Add
@@ -66,12 +42,37 @@
         </div>
       </div>
 
+
+      <!-- Modal Section -->
+      <div v-if="isModalEditOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+        <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
+          <!-- Modal content goes here -->
+          <div class="px-6 py-4 text-left modal-content">
+            <div class="flex items-center justify-between pb-3">
+              <p class="text-2xl font-bold">Edit Categories</p>
+              <button @click="closeEditModal" class="text-3xl font-bold">
+                &#215;
+              </button>
+            </div>
+            <!-- Add your photo upload form or any other content here -->
+            <form class="w-full card" @submit.prevent="editCategories">
+              <div class="form-group">
+                <label for="" class="text-grey">Name</label>
+                <input type="text" class="input-field" v-model="editedCategory.name" />
+              </div>
+              <button type="submit" class="w-full btn btn-primary mt-[14px]">
+                Edit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <section class="pt-[50px]">
         <!-- Section Header -->
         <div class="mb-[30px]">
-          <div
-            class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row"
-          >
+          <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
             <div>
               <div class="text-4xl font-bold text-dark">
                 Portofolio Category
@@ -96,30 +97,25 @@
           </div>
         </div>
 
-        <div
-          class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3"
-        >
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
           <p v-if="$fetchState.pending">Fetching categories...</p>
-          <div
-            v-else
-            class="card py-6 md:!py-10 md:!px-[38px] !gap-y-0 relative"
-            v-for="category in categories.data.result.data"
-          >
-            <button
-              v-if="category.portofolio.length === 0"
-              @click="deleteCategory(category.id)"
-              style="color: rgb(247, 108, 108)"
-              class="absolute text-3xl font-bold top-2 right-2"
-            >
+          <div v-else class="card py-6 md:!py-10 md:!px-[38px] !gap-y-0 relative"
+            v-for="category in categories.data.result.data">
+            <button v-if="category.portofolio.length === 0" @click="deleteCategory(category.id)"
+              style="color: rgb(247, 108, 108)" class="absolute text-3xl font-bold top-2 right-2">
               &#215;
             </button>
             <div class="m-auto font-bold text-center text-brightYellow">
               {{ category.name }}
             </div>
+            <button @click="openEditModal(category.id)" class="my-2 text-white bg-brightYellow btn">
+              Edit
+            </button>
           </div>
         </div>
       </section>
     </div>
+
   </section>
 </template>
 
@@ -132,7 +128,12 @@ export default {
       isLoading: false,
       categories: [],
       isModalOpen: false,
+      isModalEditOpen: false,
       category: {
+        name: '',
+      },
+      editedCategory: {
+        id: null,
         name: '',
       },
     }
@@ -217,6 +218,42 @@ export default {
         this.isLoading = false
       }
     },
+    openEditModal(categoryId) {
+      const categoryToEdit = this.categories.data.result.data.find(category => category.id === categoryId);
+      if (categoryToEdit) {
+        this.editedCategory = { ...categoryToEdit };
+        this.isModalEditOpen = true;
+      }
+    },
+
+
+    closeEditModal() {
+      this.isModalEditOpen = false
+      this.editedCategory = {
+        id: null,
+        name: '',
+      };
+    },
+    async editCategories() {
+  try {
+    this.isLoading = true;
+    // Use $axios.put for updating an existing resource
+    await this.$axios.post(`/category/update/${this.editedCategory.id}`, this.editedCategory);
+
+    // Fetch the updated categories data
+    await this.fetch();
+
+    // Close the modal
+    this.isModalEditOpen = false;
+
+    console.log('Category updated successfully');
+  } catch (error) {
+    console.error(error);
+    window.alert('An error occurred: ' + error.message);
+  } finally {
+    this.isLoading = false;
+  }
+},
   },
 }
 </script>

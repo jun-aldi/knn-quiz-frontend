@@ -126,7 +126,7 @@ export default {
     return {
       loginError: '',
       isLoading: false,
-      isModalOpen: false,
+      isModalEditOpen: false,
       fullPageImageUrl: '',
       isFullPageVisible: false,
       savedScrollPosition: 0,
