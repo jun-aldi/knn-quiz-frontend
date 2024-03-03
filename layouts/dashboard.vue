@@ -29,7 +29,7 @@
         <div class="flex flex-col gap-4">
           <!-- Your NuxtLinks ... -->
           <NuxtLink :to="{ name: 'dashboard' }" class="rounded-2xl nav-link sidebar-item" exact-active-class="active">
-            <img class="" src="/assets/svgs/ic-box.svg" alt="" />
+            <img class="" src="/assets/svgs/ic-dollar.svg" alt="" />
             Overview
           </NuxtLink>
           <div class="text-sm text-grey sidebar-tittle">Content Controll</div>
@@ -39,7 +39,7 @@
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-portofolio' }"
             class="nav-link sidebar-item hover:bg-brightYellow hover:rounded-3xl" exact-active-class="active">
-            <img src="/assets/svgs/ic-grid.svg" alt="" />
+            <img src="/assets/svgs/ic-home.svg" alt="" />
             Portofolio
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-hero' }" class="nav-link sidebar-item" exact-active-class="active">
@@ -47,19 +47,19 @@
             Highlight Section
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-portosection' }" class="nav-link sidebar-item" exact-active-class="active">
-            <img src="/assets/svgs/ic-grid.svg" alt="" />
+            <img src="/assets/svgs/ic-box.svg" alt="" />
             Portofolio Section
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-youtube' }" class="nav-link sidebar-item" exact-active-class="active">
-            <img src="/assets/svgs/ic-grid.svg" alt="" />
+            <img src="/assets/svgs/ic-users.svg" alt="" />
             Youtube Section
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-promotion' }" class="nav-link sidebar-item" exact-active-class="active">
-            <img src="/assets/svgs/ic-grid.svg" alt="" />
+            <img src="/assets/svgs/ic-gift.svg" alt="" />
             Promotion Section
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-about' }" class="nav-link sidebar-item" exact-active-class="active">
-            <img src="/assets/svgs/ic-grid.svg" alt="" />
+            <img src="/assets/svgs/ic-briefcase.svg" alt="" />
             About Section
           </NuxtLink>
         </div>

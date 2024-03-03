@@ -81,6 +81,51 @@
       </div>
 
       <!-- Modal Section -->
+      <div v-if="isModalEditPhotoOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+        <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
+        <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
+          <!-- Modal content goes here -->
+          <div class="px-6 py-4 text-left modal-content">
+            <div class="flex items-center justify-between pb-3">
+              <p class="text-2xl font-bold">Update Photo</p>
+              <button @click="closeEditPhotoModal" class="text-3xl font-bold">
+                &#215;
+              </button>
+            </div>
+            <!-- Add your photo upload form or any other content here -->
+            <form @submit.prevent="updatePhoto">
+              <label for="dropzone-file"
+                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                  <img v-if="editPreviewImageUrl" :src="editPreviewImageUrl" alt="Uploaded Preview"
+                    class="w-16 h-16 mb-4 rounded-full" />
+                  <svg v-else class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16"></svg>
+                  <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                    <span v-if="editPreviewImageUrl" class="font-semibold">Image Uploaded</span>
+                    <span v-else class="font-semibold">Click to upload</span> or drag and drop
+                  </p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                    WEBP or JPEG (MAX. 1MB)
+                  </p>
+                </div>
+                <input id="dropzone-file" type="file" class="hidden" @change="handleEditFileUpload"
+                  ref="photoEditInput" />
+              </label>
+              <div class="my-4 form-group">
+                <label for="" class="text-grey">Description</label>
+                <textarea type="text" class="input-field" v-model="editDescPhoto" />
+              </div>
+              <button type="submit"
+                class="text-white bg-brightYellow focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-2">
+                Update
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Section -->
       <div v-if="isModalEditOpen" class="fixed inset-0 z-50 flex items-center justify-center">
         <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
         <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
@@ -213,15 +258,19 @@
               <div v-for="photo in portofolios.photo" class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
                   <img :src="'https://akaapi.cloud/' + photo.src" alt="" class="max-h-[200px]" @click.prevent="
-                    openFullPage('https://akaapi.cloud/' + photo.src)
-                    " />
+      openFullPage('https://akaapi.cloud/' + photo.src)
+      " />
                   <p class="my-4">
                     {{ photo.desc }}
                   </p>
                   <div class="grid justify-center">
-                    <button type="button" class="p-3 bg-red-200 rounded-xl text-red btn btn-danger"
+                    <button type="button" class="p-3 m-2 bg-red-200 rounded-xl text-red btn btn-danger"
                       @click="deletePhoto(photo.id)">
                       Delete
+                    </button>
+                    <button type="button" class="p-3 bg-brightYellow rounded-xl text-red btn btn-danger"
+                      @click="openEditPhotoModal(photo.id)">
+                      Edit
                     </button>
                   </div>
                 </div>
@@ -244,6 +293,7 @@
     </div>
   </section>
 </template>
+
 <script>
 import { ref, onMounted } from 'vue'
 
@@ -252,7 +302,12 @@ export default {
   middleware: 'auth',
   data() {
     return {
+      editingPhotoId: null,
+      editDescPhoto: '',
+      editSrcPhoto: '',
+      editPreviewImageUrl: '',
       isLoading: false,
+      isModalEditPhotoOpen: false,
       categories: [],
       fullPageImageUrl: '',
       isFullPageVisible: false,
@@ -303,9 +358,9 @@ export default {
       } catch (error) {
         console.error(error)
         window.alert("An error occurred: " + error.message);
-      }  finally {
-          this.isLoading = false
-        }
+      } finally {
+        this.isLoading = false
+      }
     },
 
     openFullPage(imageUrl) {
@@ -377,7 +432,7 @@ export default {
         } catch (error) {
           // Handle errors, such as displaying an error message
           console.error('Error deleting photo:', error)
-        }       finally {
+        } finally {
           this.isLoading = false
         }
       }
@@ -452,7 +507,7 @@ export default {
           // Handle errors, such as displaying an error message
           console.error('Error deleting photo:', error)
           window.alert("An error occurred: " + error.message);
-        }         finally {
+        } finally {
           this.isLoading = false
         }
       }
@@ -532,9 +587,81 @@ export default {
       this.fetch()
         ; (this.previewImageUrl = null), (this.isModalEditOpen = false)
     },
+    openEditPhotoModal(photoId) {
+      const photo = this.portofolios.photo.find((p) => p.id === photoId);
+      this.editingPhotoId = photoId;
+      this.editDescPhoto = photo.desc;
+      this.editSrcPhoto = photo.src;
+      this.editPreviewImageUrl = 'https://akaapi.cloud/' + this.editSrcPhoto;
+      this.isModalEditPhotoOpen = true;
+    },
+    closeEditPhotoModal() {
+      this.isModalEditPhotoOpen = false
+    },
+    async updatePhoto() {
+  try {
+    if (!this.editingPhotoId) {
+      console.error('No photo selected for update.');
+      return;
+    }
+
+    this.isLoading = true;
+
+    let formData = new FormData();
+    formData.append('desc', this.editDescPhoto);
+
+    if (this.$refs.photoEditInput.files[0]) {
+      // If a new file is selected, upload it
+      formData.append('src', this.$refs.photoEditInput.files[0]);
+    }
+
+    formData.append('portofolio_id', this.$route.params.id);
+
+    await this.$axios.post(`/photo/update/${this.editingPhotoId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    await this.fetch();
+
+    // Reset data properties
+    this.editingPhotoId = null;
+    this.editDescPhoto = '';
+    this.editSrcPhoto = '';
+    this.editPreviewImageUrl = '';
+    this.isModalEditPhotoOpen = false;
+  } catch (error) {
+    console.error(error);
+    if (error.response && error.response.data && error.response.data.meta) {
+      window.alert('An error occurred: ' + error.response.data.meta.message);
+    } else {
+      window.alert('An error occurred');
+    }
+  } finally {
+    this.isLoading = false;
+  }
+},
+
+    handleEditFileUpload(event) {
+      const input = event.target;
+      if (input.files && input.files[0]) {
+        // Set the editSrcPhoto to the selected File object
+        this.editSrcPhoto = input.files[0];
+
+        // Set the editPreviewImageUrl
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.editPreviewImageUrl = reader.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+
   },
 }
 </script>
+
 <style>
 #fullpage {
   position: fixed;
@@ -560,6 +687,7 @@ export default {
   /* Ensure the image maintains its aspect ratio and fits within the container */
 }
 </style>
+
 <style>
 .loader-dots div {
   animation-timing-function: cubic-bezier(0, 1, 1, 0);

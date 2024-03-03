@@ -1,9 +1,21 @@
 <template>
   <section>
     <!-- Main Content -->
+        <!-- Loading -->
+        <div v-if="isLoading" class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
+      <div class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg">
+        <div class="relative block w-20 h-5 mt-2 loader-dots">
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+        </div>
+        <div class="mt-2 text-xs font-medium text-center text-gray-500">
+          Loading...
+        </div>
+      </div>
+    </div>
     <div>
-
-
       <section class="pt-[50px]">
         <!-- Section Header -->
         <div class="mb-[30px]">
@@ -109,6 +121,8 @@ export default {
 
   data() {
     return {
+      isLoading: false,
+
       totalCategories: 0,
       totalPortofolios: 0,
       totalHeroes: 0,
@@ -127,6 +141,7 @@ export default {
     }
   },
   async fetch() {
+    this.isLoading = true
     try {
       ; (this.categories = await this.$axios.get('/category', {
         params: {
@@ -167,6 +182,8 @@ export default {
     } catch (error) {
       console.error('Error fetching photos:', error)
       window.alert("An error occurred: " + error.message);
+    } finally{
+      this.isLoading = false
     }
   },
 }
