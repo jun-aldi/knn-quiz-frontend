@@ -126,9 +126,10 @@
       </div>
 
       <!-- Modal Section -->
-      <div v-if="isModalEditOpen" class="fixed inset-0 z-50 flex items-center justify-center">
+      <div v-if="isModalEditOpen" class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
         <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
-        <div class="z-50 w-11/12 mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
+        <div
+          class="z-50 w-11/12 max-h-full mx-auto overflow-y-auto bg-white rounded shadow-lg modal-container md:max-w-md">
           <!-- Modal content goes here -->
           <div class="px-6 py-4 text-left modal-content">
             <div class="flex items-center justify-between pb-3">
@@ -599,49 +600,49 @@ export default {
       this.isModalEditPhotoOpen = false
     },
     async updatePhoto() {
-  try {
-    if (!this.editingPhotoId) {
-      console.error('No photo selected for update.');
-      return;
-    }
+      try {
+        if (!this.editingPhotoId) {
+          console.error('No photo selected for update.');
+          return;
+        }
 
-    this.isLoading = true;
+        this.isLoading = true;
 
-    let formData = new FormData();
-    formData.append('desc', this.editDescPhoto);
+        let formData = new FormData();
+        formData.append('desc', this.editDescPhoto);
 
-    if (this.$refs.photoEditInput.files[0]) {
-      // If a new file is selected, upload it
-      formData.append('src', this.$refs.photoEditInput.files[0]);
-    }
+        if (this.$refs.photoEditInput.files[0]) {
+          // If a new file is selected, upload it
+          formData.append('src', this.$refs.photoEditInput.files[0]);
+        }
 
-    formData.append('portofolio_id', this.$route.params.id);
+        formData.append('portofolio_id', this.$route.params.id);
 
-    await this.$axios.post(`/photo/update/${this.editingPhotoId}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+        await this.$axios.post(`/photo/update/${this.editingPhotoId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
-    await this.fetch();
+        await this.fetch();
 
-    // Reset data properties
-    this.editingPhotoId = null;
-    this.editDescPhoto = '';
-    this.editSrcPhoto = '';
-    this.editPreviewImageUrl = '';
-    this.isModalEditPhotoOpen = false;
-  } catch (error) {
-    console.error(error);
-    if (error.response && error.response.data && error.response.data.meta) {
-      window.alert('An error occurred: ' + error.response.data.meta.message);
-    } else {
-      window.alert('An error occurred');
-    }
-  } finally {
-    this.isLoading = false;
-  }
-},
+        // Reset data properties
+        this.editingPhotoId = null;
+        this.editDescPhoto = '';
+        this.editSrcPhoto = '';
+        this.editPreviewImageUrl = '';
+        this.isModalEditPhotoOpen = false;
+      } catch (error) {
+        console.error(error);
+        if (error.response && error.response.data && error.response.data.meta) {
+          window.alert('An error occurred: ' + error.response.data.meta.message);
+        } else {
+          window.alert('An error occurred');
+        }
+      } finally {
+        this.isLoading = false;
+      }
+    },
 
     handleEditFileUpload(event) {
       const input = event.target;
