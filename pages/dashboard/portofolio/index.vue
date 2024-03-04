@@ -23,7 +23,7 @@
         <div class="flex flex-col justify-between gap-6 sm:items-center sm:flex-row">
           <div>
             <div class="text-4xl font-medium text-dark">Portofolio</div>
-            <p class="text-grey">Your promotions</p>
+            <p class="text-grey">Your portofolios</p>
           </div>
           <NuxtLink :to="{ name: 'dashboard-portofolio-create' }" class="btn btn-primary">Add Portofolio</NuxtLink>
         </div>

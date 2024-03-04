@@ -94,8 +94,7 @@
         <div class="mb-[30px]">
           <div class="flex items-center justify-between gap-6">
             <div>
-              <div class="text-xl font-medium text-dark">Promotions</div>
-              <p class="text-grey">Display</p>
+              <p class="font-bold text-dark">GUNAKAN FOTO DENGAN FORMAT WEBP DAN UKURAN < 1MB UNTUK LOADING LEBIH CEPAT</p>
             </div>
           </div>
         </div>

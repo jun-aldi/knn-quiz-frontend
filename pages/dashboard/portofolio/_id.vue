@@ -252,6 +252,7 @@
               <div class="flex items-center justify-between gap-6">
                 <div>
                   <div class="text-xl font-medium text-dark">Galeri</div>
+                  <div class="font-bold text-blue">GUNAKAN FOTO UKURAN KURANG DARI 1MB DAN FORMAT WEBP UNTUK LOADING YANG LEBIH CEPAT</div>
                 </div>
               </div>
             </div>
