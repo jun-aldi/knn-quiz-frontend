@@ -14,10 +14,8 @@
       Loading...
     </button>
     <!-- Main Content -->
-    <div v-else >
+    <div v-else>
       <!-- Top Section -->
-
-
       <!-- Modal Section -->
       <div v-if="isModalEditOpen" class="fixed inset-0 z-50 flex items-center justify-center">
         <div class="absolute w-full h-full bg-gray-800 opacity-50 modal-overlay"></div>
@@ -46,7 +44,7 @@
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Foto Deskripsi</label>
-                <input type="file" class="input-field" ref="fotoDeskripsiInput"  />
+                <input type="file" class="input-field" ref="fotoDeskripsiInput" />
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Foto Misi</label>
@@ -54,7 +52,7 @@
               </div>
               <div class="form-group">
                 <label for="" class="text-grey">Foto Visi</label>
-                <input type="file" class="input-field" ref="fotoVisiInput"/>
+                <input type="file" class="input-field" ref="fotoVisiInput" />
               </div>
 
               <button type="submit" class="w-full btn btn-primary mt-[14px]">
@@ -64,6 +62,7 @@
           </div>
         </div>
       </div>
+
 
 
       <section class="pt-[50px]">
@@ -138,24 +137,24 @@
               <div class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
                   <img :src="'https://akaapi.cloud/' + abouts.src_title" alt="" class="max-h-[200px]" @click.prevent="
-                    openFullPage('https://akaapi.cloud/' + abouts.src_title)
-                    " />
+      openFullPage('https://akaapi.cloud/' + abouts.src_title)
+      " />
                   <p>Gambar Pertama</p>
                 </div>
               </div>
               <div class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
                   <img :src="'https://akaapi.cloud/' + abouts.src_visi" alt="" class="max-h-[200px]" @click.prevent="
-                    openFullPage('https://akaapi.cloud/' + abouts.src_visi)
-                    " />
+      openFullPage('https://akaapi.cloud/' + abouts.src_visi)
+      " />
                   <p>Gambar Visi</p>
                 </div>
               </div>
               <div class="card md:min-h-[400px]">
                 <div class="m-auto text-center">
                   <img :src="'https://akaapi.cloud/' + abouts.src_misi" alt="" class="max-h-[200px]" @click.prevent="
-                    openFullPage('https://akaapi.cloud/' + abouts.src_misi)
-                    " />
+      openFullPage('https://akaapi.cloud/' + abouts.src_misi)
+      " />
                   <p>Gambar Misi</p>
                 </div>
               </div>
@@ -169,6 +168,7 @@
     </div>
   </section>
 </template>
+
 <script>
 import { ref, onMounted } from 'vue'
 
@@ -197,11 +197,11 @@ export default {
   async fetch() {
     try {
       const response = await this.$axios.get('/about', {
-      params: {
-        limit: 10,
-      },
-    })
-    this.abouts = response.data.result.data[0]
+        params: {
+          limit: 10,
+        },
+      })
+      this.abouts = response.data.result.data[0]
     } catch (error) {
       window.alert("An error occurred: " + error.message);
     }
@@ -210,41 +210,41 @@ export default {
   },
   methods: {
     async updateAbout() {
-  const { id, title, misi, visi } = this.abouts;
+      const { id, title, misi, visi } = this.abouts;
 
-  try {
-    // Create a FormData object to send both text and file data
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('misi', misi);
-    formData.append('visi', visi);
+      try {
+        // Create a FormData object to send both text and file data
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('misi', misi);
+        formData.append('visi', visi);
 
-    // Append files to FormData if they are not undefined
-    if (this.$refs.fotoDeskripsiInput.files[0]) {
-      formData.append('src_title', this.$refs.fotoDeskripsiInput.files[0]);
-    }
-    if (this.$refs.fotoMisiInput.files[0]) {
-      formData.append('src_misi', this.$refs.fotoMisiInput.files[0]);
-    }
-    if (this.$refs.fotoVisiInput.files[0]) {
-      formData.append('src_visi', this.$refs.fotoVisiInput.files[0]);
-    }
+        // Append files to FormData if they are not undefined
+        if (this.$refs.fotoDeskripsiInput.files[0]) {
+          formData.append('src_title', this.$refs.fotoDeskripsiInput.files[0]);
+        }
+        if (this.$refs.fotoMisiInput.files[0]) {
+          formData.append('src_misi', this.$refs.fotoMisiInput.files[0]);
+        }
+        if (this.$refs.fotoVisiInput.files[0]) {
+          formData.append('src_visi', this.$refs.fotoVisiInput.files[0]);
+        }
 
-    // Use Axios to send the updated about information to the server, including files
-    await this.$axios.post(`/about/update/1`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-    this.isModalEditOpen = false;
-    await this.fetch();
-    // Handle success, e.g., show a success message or redirect
-  } catch (error) {
-    // Handle errors, e.g., show an error message
-    console.error('Error updating about:', error);
-    window.alert('An error occurred while edit: ' + error.message);
-  }
-},
+        // Use Axios to send the updated about information to the server, including files
+        await this.$axios.post(`/about/update/1`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        this.isModalEditOpen = false;
+        await this.fetch();
+        // Handle success, e.g., show a success message or redirect
+      } catch (error) {
+        // Handle errors, e.g., show an error message
+        console.error('Error updating about:', error);
+        window.alert('An error occurred while edit: ' + error.message);
+      }
+    },
 
 
     openFullPage(imageUrl) {
@@ -277,11 +277,11 @@ export default {
 
     async fetch() {
       const response = await this.$axios.get('/about', {
-      params: {
-        limit: 10,
-      },
-    })
-    this.abouts = response.data.result.data[0]
+        params: {
+          limit: 10,
+        },
+      })
+      this.abouts = response.data.result.data[0]
 
     },
 
@@ -312,11 +312,12 @@ export default {
     },
     closeEditModal() {
       this.fetch();
-         (this.isModalEditOpen = false)
+      (this.isModalEditOpen = false)
     },
   },
 }
 </script>
+
 <style>
 #fullpage {
   position: fixed;
