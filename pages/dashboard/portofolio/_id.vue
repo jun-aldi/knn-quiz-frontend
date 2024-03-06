@@ -253,8 +253,9 @@
             <div class="mb-[10px]">
               <div class="flex items-center justify-between gap-6">
                 <div>
-                  <div class="text-xl font-medium text-dark">Galeri</div>
-                  <div class="font-bold text-blue">GUNAKAN FOTO UKURAN KURANG DARI 1MB DAN FORMAT WEBP UNTUK LOADING YANG LEBIH CEPAT</div>
+                  <div class="my-1 text-2xl font-bold ">Galeri</div>
+                  <div class="font-semibold text-blue">GUNAKAN FOTO UKURAN KURANG DARI 1MB DAN FORMAT WEBP UNTUK LOADING YANG LEBIH CEPAT</div>
+                  <div class="text-sm font-thin text-blue">Klik gambar untuk melihat lebih detail</div>
                 </div>
               </div>
             </div>
