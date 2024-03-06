@@ -32,7 +32,7 @@
             <form class="w-full card" @submit.prevent="addHeroes">
               <div class="form-group">
                 <label for="" class="text-grey">Portofolio Add</label>
-                <p v-if="$fetchState.pending">Fetching portofolio...</p>
+                <p v-if="$fetchState.pending">Loading ...</p>
                 <select v-else @change="fetchPhotos" v-model="heros.portofolio_id"
                   class="appearance-none input-field form-icon-chevron_down">
                   <option :value="portofolio.id" v-for="portofolio in portofolios.data.result.data">

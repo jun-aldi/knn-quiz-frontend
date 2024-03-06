@@ -82,7 +82,7 @@
         </div>
 
         <div class="grid grid-cols-1 gap-2 sm:grid-cols-1 lg:grid-cols-2 xl:gap-5 lg:gap-3">
-          <p v-if="$fetchState.pending">Fetching youtubes...</p>
+          <p v-if="$fetchState.pending">Loading ...</p>
           <!-- Card -->
           <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
             v-for="youtube in youtubes.data.result.data">

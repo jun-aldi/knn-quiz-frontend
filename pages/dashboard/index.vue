@@ -1,8 +1,8 @@
 <template>
   <section>
     <!-- Main Content -->
-        <!-- Loading -->
-        <div v-if="isLoading" class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
+    <!-- Loading -->
+    <div v-if="isLoading" class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
       <div class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg">
         <div class="relative block w-20 h-5 mt-2 loader-dots">
           <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
@@ -33,7 +33,7 @@
               <div>
                 <p class="font-bold">Portofolio</p>
                 <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
-                  {{ totalPortofolios}}
+                  {{ totalPortofolios }}
                 </div>
               </div>
               <NuxtLink :to="{ name: 'dashboard-portofolio' }">
@@ -47,7 +47,7 @@
               <div>
                 <p class="font-bold">Portofolio Category</p>
                 <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
-                  {{ totalCategories}}
+                  {{ totalCategories }}
                 </div>
               </div>
               <NuxtLink :to="{ name: 'dashboard-category' }">
@@ -61,7 +61,7 @@
               <div>
                 <p class="font-bold">Portofolio Shows</p>
                 <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
-                  {{ totalShows}}
+                  {{ totalShows }}
                 </div>
               </div>
               <NuxtLink :to="{ name: 'dashboard-portofolio' }">
@@ -75,7 +75,7 @@
               <div>
                 <p class="font-bold">Highlights Shows</p>
                 <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
-                  {{ totalHeroes}}
+                  {{ totalHeroes }}
                 </div>
               </div>
               <NuxtLink :to="{ name: 'dashboard-hero' }">
@@ -88,7 +88,7 @@
               <div>
                 <p class="font-bold">Youtubes Shows</p>
                 <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
-                  {{ totalYoutubes}}
+                  {{ totalYoutubes }}
                 </div>
               </div>
               <NuxtLink :to="{ name: 'dashboard-youtube' }">
@@ -101,7 +101,7 @@
               <div>
                 <p class="font-bold">Promotions Shows</p>
                 <div class="text-[32px] font-bold text-brightYellow mt-[6px]">
-                  {{ totalPromotions}}
+                  {{ totalPromotions }}
                 </div>
               </div>
               <NuxtLink :to="{ name: 'dashboard-promotion' }">
@@ -114,6 +114,7 @@
     </div>
   </section>
 </template>
+
 <script>
 export default {
   middleware: 'auth',
@@ -182,7 +183,7 @@ export default {
     } catch (error) {
       console.error('Error fetching photos:', error)
       window.alert("An error occurred: " + error.message);
-    } finally{
+    } finally {
       this.isLoading = false
     }
   },

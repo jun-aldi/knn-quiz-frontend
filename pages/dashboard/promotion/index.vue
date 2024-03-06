@@ -100,7 +100,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
-          <p v-if="$fetchState.pending">Fetching promotions...</p>
+          <p v-if="$fetchState.pending">Loading ...</p>
           <!-- Card -->
           <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
             v-for="promotion in promotions.data.result.data">

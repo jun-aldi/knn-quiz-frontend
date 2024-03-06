@@ -40,7 +40,7 @@
           <form class="w-full card" @submit.prevent="addHeroes">
             <div class="form-group">
               <label for="" class="text-grey">Heroes Add</label>
-              <p v-if="$fetchState.pending">Fetching portofolio...</p>
+              <p v-if="$fetchState.pending">Loading...</p>
               <select
                 v-else
                 @change="fetchPhotos"

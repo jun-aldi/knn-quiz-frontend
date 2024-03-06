@@ -20,7 +20,7 @@
   }
 
   .input-field {
-    @apply placeholder:text-grey text-dark py-[11px] px-6 rounded-[100px] outline outline-[1.4px] outline-dark focus:outline-primary;
+    @apply placeholder:text-grey text-dark py-[11px] px-6 rounded-[10px] outline outline-[1.4px] outline-dark focus:outline-primary;
   }
 
   .btn {

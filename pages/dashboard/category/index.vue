@@ -98,7 +98,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
-          <p v-if="$fetchState.pending">Fetching categories...</p>
+          <p v-if="$fetchState.pending">Loading...</p>
           <div v-else class="card py-6 md:!py-10 md:!px-[38px] !gap-y-0 relative"
             v-for="category in categories.data.result.data">
             <button v-if="category.portofolio.length === 0" @click="deleteCategory(category.id)"

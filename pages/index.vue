@@ -1,5 +1,21 @@
 <template>
   <section class="bg-gray-50 ">
+
+        <!-- Loading -->
+        <div v-if="isLoading" class="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
+      <div class="flex flex-col items-center px-5 py-2 bg-white border rounded-lg">
+        <div class="relative block w-20 h-5 mt-2 loader-dots">
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+          <div class="absolute top-0 w-3 h-3 mt-1 rounded-full bg-brightYellow"></div>
+        </div>
+        <div class="mt-2 text-xs font-medium text-center text-gray-500">
+          Login...
+        </div>
+      </div>
+    </div>
+
     <div
       class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
     >
@@ -83,6 +99,7 @@ export default {
   auth: 'guest',
   data() {
     return {
+      isLoading: false,
       login: {
         email: '',
         password: '',
@@ -92,6 +109,7 @@ export default {
   },
   methods: {
     async userLogin() {
+      this.isLoading = true
     try {
       let response = await this.$auth.loginWith('local', { data: this.login })
       // Save token to localStorage
@@ -104,6 +122,7 @@ export default {
         this.loginError = "An unknown error occurred.";
       }
     }
+    this.isLoading = false
     this.$router.push({
       name: 'dashboard',
     })
