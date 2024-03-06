@@ -48,6 +48,16 @@
   .nav-link.active img {
     @apply brightness-0 invert;
   }
+.nav-link:hover {
+  font-weight: bold; /* or font-weight: 600; for semi-bold */
+  color: white;
+  background-color: hsl(51, 82%, 54%); /* Replace with your primary color */
+  border-radius: 20px; /* Replace with your desired border radius */
+}
+
+.nav-link:hover img {
+  filter: brightness(0) invert(1);
+}
 
   .form-icon-search {
     @apply sm:bg-[url('/assets/svgs/ic-search.svg')] bg-no-repeat bg-[center_right_24px];

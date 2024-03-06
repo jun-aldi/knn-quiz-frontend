@@ -42,7 +42,7 @@
               </div>
               <div class="form-group" v-if="heros.portofolio_id && !fetchingPhotos">
                 <label for="" class="text-grey">Photo</label>
-                <p v-if="$fetchState.pendingPhotos">Fetching photo...</p>
+                <p v-if="$fetchState.pendingPhotos">Loading...</p>
                 <select v-else v-model="heros.photo_id" class="appearance-none input-field form-icon-chevron_down">
                   <option :style="{
                     backgroundImage: `url('https://aka-backend.test/${photo.src}')`,
@@ -95,7 +95,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3">
-          <p v-if="$fetchState.pending">Fetching portofolio shows...</p>
+          <p v-if="$fetchState.pending">Loading...</p>
           <!-- Card -->
           <div v-else class="items-center card py-6 md:!py-10 md:!px-[38px] !gap-y-0"
             v-for="show in shows.data.result.data">

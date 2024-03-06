@@ -38,7 +38,7 @@
             Portofolio Category
           </NuxtLink>
           <NuxtLink :to="{ name: 'dashboard-portofolio' }"
-            class="nav-link sidebar-item hover:bg-brightYellow hover:rounded-3xl" exact-active-class="active">
+            class="nav-link sidebar-item " exact-active-class="active">
             <img src="/assets/svgs/ic-home.svg" alt="" />
             Portofolio
           </NuxtLink>

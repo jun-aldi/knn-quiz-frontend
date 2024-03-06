@@ -60,7 +60,7 @@
               v-if="heros.portofolio_id && !fetchingPhotos"
             >
               <label for="" class="text-grey">Photo</label>
-              <p v-if="$fetchState.pendingPhotos">Fetching photo...</p>
+              <p v-if="$fetchState.pendingPhotos">Loading ...</p>
               <select
                 v-else
                 v-model="heros.photo_id"
@@ -127,7 +127,7 @@
       <div
         class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:gap-10 lg:gap-3"
       >
-        <p v-if="$fetchState.pending">Fetching heroes...</p>
+        <p v-if="$fetchState.pending">Loading...</p>
         <!-- Card -->
         <div
           v-else
